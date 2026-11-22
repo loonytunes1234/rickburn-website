@@ -97,6 +97,15 @@ section.block .wrap { padding-block: clamp(56px, 8vw, 96px); }
 .svc p { margin: 0; color: var(--mist); font-size: 15.5px; }
 .media-apps { margin-top: 28px; color: var(--mist); }
 
+.listen { border-top: 1px solid var(--line); background: radial-gradient(60% 120% at 50% 100%, rgba(47,155,255,.10), transparent 70%), var(--night); }
+.listen .wrap { padding-block: clamp(48px, 7vw, 80px); }
+.services { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 22px; }
+.service { display: inline-flex; align-items: center; gap: 12px; padding: 12px 20px 12px 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(10,18,32,.8); color: var(--ink); font: 600 15px/1 var(--body);
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+.service:hover { color: var(--ink); transform: translateY(-2px); border-color: var(--svc); box-shadow: 0 0 22px color-mix(in srgb, var(--svc) 35%, transparent); }
+.service i { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--svc); color: #fff; }
+.service i svg { width: 14px; height: 14px; }
+.service small { display: block; font: 500 12px/1.2 var(--body); color: var(--mist); margin-top: 3px; }
 footer { border-top: 1px solid var(--line); }
 footer .wrap { padding-block: 26px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; color: var(--mist); font-size: 14px; }
 footer em { color: var(--ink); }
@@ -199,6 +208,13 @@ html.calm *, html.calm *::before, html.calm *::after { animation-play-state: pau
       <ul class="tracks" id="songs"></ul>
     </div>
   </section>
+  <section class="listen" id="listen" aria-labelledby="listen-h">
+    <div class="wrap">
+      <p class="eyebrow">Listen and follow</p>
+      <h2 id="listen-h">Find our music on</h2>
+      <div class="services" id="services"></div>
+    </div>
+  </section>
 </main>
 
 <footer>
@@ -229,6 +245,22 @@ html.calm *, html.calm *::before, html.calm *::after { animation-play-state: pau
    - a service's own player (embed):       { title: "…", note: "…", embed: "<the src from the service's embed code>", height: 152 }
    - a YouTube Music track (16:9 player):  { heading: "Contemporary", title: "…", embed: "https://www.youtube-nocookie.com/embed/<v= id>?rel=0", video: true }
 */
+/* "Find our music on": one line per service. Add Spotify, Apple Music etc. here as links arrive. */
+var LISTEN = [
+  { name: "YouTube Music", url: "https://music.youtube.com/channel/UCM7DVgog6cvegUyoAPEM3iA", colour: "#ff0033" }
+];
+(function () {
+  var box = document.getElementById('services'); if (!box) return;
+  var play = '<svg viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><path d="M4 2.5l8 4.5-8 4.5z"/></svg>';
+  LISTEN.forEach(function (s) {
+    var a = document.createElement('a');
+    a.className = 'service'; a.href = s.url; a.target = '_blank'; a.rel = 'noopener';
+    a.style.setProperty('--svc', s.colour);
+    a.innerHTML = '<i>' + play + '</i><span>' + s.name + '<small>Rick Burn</small></span>';
+    box.appendChild(a);
+  });
+})();
+
 var TRACKS = {
   songs: [
     { heading: "Contemporary Modern", title: "Lost In The City (R&B Version)", embed: "https://www.youtube-nocookie.com/embed/y-vItvzlZvI?rel=0", video: true },
