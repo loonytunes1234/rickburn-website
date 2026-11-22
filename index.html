@@ -248,6 +248,9 @@ html.calm *, html.calm *::before, html.calm *::after { animation-play-state: pau
 .dl .regular strong { font-family: var(--display); font-weight: 500; font-size: 20px; }
 .dl .regular .btn3 { margin-top: auto; align-self: flex-start; padding: 10px 16px; border-radius: 999px; border: 1px solid #f2b84b; color: var(--ink); font: 600 14px/1 var(--body); }
 .dl .regular .btn3:hover { background: rgba(242,184,75,.15); color: var(--ink); }
+.dl .paused { display: flex; flex-direction: column; gap: 8px; padding: 22px; border-radius: 14px; border: 1px solid var(--line); background: rgba(4,7,13,.6); min-width: 0; }
+.dl .paused strong { font-family: var(--display); font-weight: 500; font-size: 20px; }
+.dl .btn2.off { background: transparent; color: var(--mist); border: 1px dashed var(--line); box-shadow: none; cursor: default; }
 .smartscreen { margin-top: 20px; display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; border-radius: 12px; background: rgba(47,155,255,.07); border: 1px solid rgba(47,155,255,.25); color: #c9d5e4; font-size: 15px; }
 .smartscreen svg { flex: none; width: 22px; height: 22px; color: var(--glow); margin-top: 1px; }
 .smartscreen b { color: var(--ink); }
@@ -428,7 +431,7 @@ html.calm *, html.calm *::before, html.calm *::after { animation-play-state: pau
           <p>Google's free remote help, through the Chrome browser. Share a one-time access code and you're connected.</p>
         </article>
         <article class="tool own">
-          <span class="badge">Available now</span>
+          <span class="badge">Coming soon</span>
           <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 5l12 5v9c0 8-5.4 13.5-12 16-6.6-2.5-12-8-12-16v-9z"/><path d="M14 21l4 4 8-9"/></svg>
           <h3>Juno Remote</h3>
           <p>Our own secure connector, running through our own server rather than a third party. Run it without installing and read out the code; existing clients get permanent access set up by us. <a href="#download">Download below</a>.</p>
@@ -439,13 +442,13 @@ html.calm *, html.calm *::before, html.calm *::after { animation-play-state: pau
         <h3>Download Juno Remote</h3>
         <p>Our own remote support connector for Windows. Download it for a one-off session; existing clients get permanent access set up by us.</p>
         <div class="dl">
-          <a href="https://github.com/loonytunes1234/remote-support/releases/download/rickburn-1.5.3/RickBurnRemoteSupport.exe" download>
+          <div class="paused">
             <span class="kind">Instant support · no install</span>
             <strong>Rick Burn Remote Support</strong>
             <span class="d">For a one-off session. Run it, and it shows an ID and a one-time password: read those out to us and we connect. Nothing is installed, and nothing is left running afterwards.</span>
-            <span class="btn2"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v9M4 7l4 4 4-4M3 14h10"/></svg>Download for Windows</span>
-            <small>RickBurnRemoteSupport.exe · about 25 MB</small>
-          </a>
+            <span class="btn2 off">Download temporarily unavailable</span>
+            <small>Please <a href="#contact">call or email us</a> and we’ll get you connected.</small>
+          </div>
           <div class="regular">
             <span class="kind">Full install · existing clients only</span>
             <strong>Rick Burn Remote Access</strong>
