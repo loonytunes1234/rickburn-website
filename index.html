@@ -224,6 +224,7 @@ footer em { color: var(--ink); }
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } .shine, .remote .beam, .btn.solid::after, .tagline, .logo, .tag .lede, .tag .cta, .tool.own .badge { animation: none; } }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+html.calm *, html.calm *::before, html.calm *::after { animation-play-state: paused !important; }
 </style>
 
 <header class="bar">
@@ -464,6 +465,20 @@ footer em { color: var(--ink); }
 </footer>
 
 <script>
+/* Calm mode: after 12 s with no mouse, scroll, touch or key, every animation on the page stops
+   (so a page left open costs the computer almost nothing); any movement wakes it again. */
+(function () {
+  var t;
+  function calm() { window.__calm = true; document.documentElement.classList.add('calm'); }
+  function poke() {
+    if (window.__calm) { window.__calm = false; document.documentElement.classList.remove('calm'); window.dispatchEvent(new Event('juno-wake')); }
+    clearTimeout(t); t = setTimeout(calm, 12000);
+  }
+  ['mousemove', 'scroll', 'keydown', 'touchstart', 'pointerdown', 'wheel'].forEach(function (e) { window.addEventListener(e, poke, { passive: true }); });
+  poke();
+})();
+</script>
+<script>
 (function () {
   // Copy buttons
   document.querySelectorAll('.copy').forEach(function (b) {
@@ -550,11 +565,12 @@ footer em { color: var(--ink); }
     }
     function loop(t) {
       raf = 0;
-      if (!onScreen || document.hidden) return;
-      if (t - last >= 33) { last = t; draw(t); }
+      if (!onScreen || document.hidden || window.__calm) return;
+      if (t - last >= 40) { last = t; draw(t); }
       raf = requestAnimationFrame(loop);
     }
-    function wake() { if (!raf && !still && onScreen && !document.hidden) raf = requestAnimationFrame(loop); }
+    function wake() { if (!raf && !still && onScreen && !document.hidden && !window.__calm) raf = requestAnimationFrame(loop); }
+    window.addEventListener('juno-wake', wake);
     size(); draw(0);
     window.addEventListener('resize', function () { size(); draw(last > 0 ? last : 0); });
     if ('IntersectionObserver' in window) {

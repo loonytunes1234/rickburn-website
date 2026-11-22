@@ -88,6 +88,7 @@ section.block .wrap { padding-block: clamp(56px, 8vw, 96px); }
 footer { border-top: 1px solid var(--line); }
 footer .wrap { padding-block: 26px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; color: var(--mist); font-size: 14px; }
 footer em { color: var(--ink); }
+html.calm *, html.calm *::before, html.calm *::after { animation-play-state: paused !important; }
 </style>
 </head>
 <body>
@@ -182,6 +183,20 @@ footer em { color: var(--ink); }
 </footer>
 
 <script>
+/* Calm mode: after 12 s with no mouse, scroll, touch or key, every animation on the page stops
+   (so a page left open costs the computer almost nothing); any movement wakes it again. */
+(function () {
+  var t;
+  function calm() { window.__calm = true; document.documentElement.classList.add('calm'); }
+  function poke() {
+    if (window.__calm) { window.__calm = false; document.documentElement.classList.remove('calm'); window.dispatchEvent(new Event('juno-wake')); }
+    clearTimeout(t); t = setTimeout(calm, 12000);
+  }
+  ['mousemove', 'scroll', 'keydown', 'touchstart', 'pointerdown', 'wheel'].forEach(function (e) { window.addEventListener(e, poke, { passive: true }); });
+  poke();
+})();
+</script>
+<script>
 /* The track list. Add one line per track:
    - audio file published with the site:  { title: "…", note: "…", file: "audio/name.mp3" }
    - track hosted elsewhere (link out):    { title: "…", note: "…", link: "https://soundcloud.com/…" }
@@ -256,8 +271,9 @@ var TRACKS = {
   }
   // At most 30 frames a second, and only while the meter is on screen and the tab is visible.
   var last = -1e9, raf = 0, onScreen = true;
-  function loop(t) { raf = 0; if (!onScreen || document.hidden) return; if (t - last >= 33) { last = t; draw(t); } raf = requestAnimationFrame(loop); }
-  function wake() { if (!raf && !reduce && onScreen && !document.hidden) raf = requestAnimationFrame(loop); }
+  function loop(t) { raf = 0; if (!onScreen || document.hidden || window.__calm) return; if (t - last >= 40) { last = t; draw(t); } raf = requestAnimationFrame(loop); }
+  function wake() { if (!raf && !reduce && onScreen && !document.hidden && !window.__calm) raf = requestAnimationFrame(loop); }
+  window.addEventListener('juno-wake', wake);
   size(); draw(0); window.addEventListener('resize', function () { size(); draw(last > 0 ? last : 0); });
   if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { onScreen = es[0].isIntersecting; wake(); }).observe(c);
   document.addEventListener('visibilitychange', wake);

@@ -223,6 +223,7 @@ dialog[open] { display: flex; flex-direction: column; animation: rise .22s ease;
 footer { border-top: 1px solid var(--line); }
 footer .wrap { padding-block: 26px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; color: var(--mist); font-size: 14px; }
 footer em { color: var(--ink); }
+html.calm *, html.calm *::before, html.calm *::after { animation-play-state: paused !important; }
 </style>
 </head>
 <body>
@@ -334,6 +335,20 @@ footer em { color: var(--ink); }
   </div>
 </dialog>
 
+<script>
+/* Calm mode: after 12 s with no mouse, scroll, touch or key, every animation on the page stops
+   (so a page left open costs the computer almost nothing); any movement wakes it again. */
+(function () {
+  var t;
+  function calm() { window.__calm = true; document.documentElement.classList.add('calm'); }
+  function poke() {
+    if (window.__calm) { window.__calm = false; document.documentElement.classList.remove('calm'); window.dispatchEvent(new Event('juno-wake')); }
+    clearTimeout(t); t = setTimeout(calm, 12000);
+  }
+  ['mousemove', 'scroll', 'keydown', 'touchstart', 'pointerdown', 'wheel'].forEach(function (e) { window.addEventListener(e, poke, { passive: true }); });
+  poke();
+})();
+</script>
 <script>
 /* The apps. Screenshots go in `shots` as { src: "apps/shots/name.png", caption: "…" },
    taken from the apps themselves with made-up demo information. */
@@ -656,11 +671,12 @@ var APPS = [
   }
   function spinOrbit(t) {
     orbitRaf = 0;
-    if (!orbitOn || document.hidden) return;
-    if (t - orbitLast >= 33) { orbitLast = t; placeOrbit(t); }
+    if (!orbitOn || document.hidden || window.__calm) return;
+    if (t - orbitLast >= 40) { orbitLast = t; placeOrbit(t); }
     orbitRaf = requestAnimationFrame(spinOrbit);
   }
-  function wakeOrbit() { if (!orbitRaf && !reduce && orbitOn && !document.hidden) orbitRaf = requestAnimationFrame(spinOrbit); }
+  function wakeOrbit() { if (!orbitRaf && !reduce && orbitOn && !document.hidden && !window.__calm) orbitRaf = requestAnimationFrame(spinOrbit); }
+  window.addEventListener('juno-wake', wakeOrbit);
   placeOrbit(0);
   if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { orbitOn = es[0].isIntersecting; wakeOrbit(); }).observe(orbit);
   document.addEventListener('visibilitychange', wakeOrbit);
@@ -716,11 +732,12 @@ var APPS = [
     }
     function loop(t) {
       raf = 0;
-      if (!onScreen || document.hidden) return;
-      if (t - last >= 33) { last = t; draw(t); }
+      if (!onScreen || document.hidden || window.__calm) return;
+      if (t - last >= 40) { last = t; draw(t); }
       raf = requestAnimationFrame(loop);
     }
-    function wake() { if (!raf && !still && onScreen && !document.hidden) raf = requestAnimationFrame(loop); }
+    function wake() { if (!raf && !still && onScreen && !document.hidden && !window.__calm) raf = requestAnimationFrame(loop); }
+    window.addEventListener('juno-wake', wake);
     size(); draw(0);
     window.addEventListener('resize', function () { size(); draw(last > 0 ? last : 0); });
     if ('IntersectionObserver' in window) {
