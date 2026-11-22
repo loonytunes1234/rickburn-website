@@ -225,6 +225,29 @@ footer em { color: var(--ink); }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 html.calm *, html.calm *::before, html.calm *::after { animation-play-state: paused !important; }
+
+/* ---------- Juno Remote downloads ---------- */
+.get { margin-top: 28px; padding: clamp(22px, 3vw, 32px); border-radius: 18px; border: 1px solid rgba(242,184,75,.45);
+  background: radial-gradient(70% 120% at 100% 0%, rgba(242,184,75,.12), transparent 65%), linear-gradient(160deg, var(--deep), var(--night) 85%); }
+.get h3 { font-family: var(--display); font-weight: 500; font-size: clamp(22px, 2.6vw, 28px); margin: 0 0 6px; }
+.get > p { margin: 0; color: var(--mist); max-width: 70ch; }
+.dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 22px; }
+@media (max-width: 820px) { .dl { grid-template-columns: 1fr; } }
+.dl a { display: flex; flex-direction: column; gap: 8px; padding: 22px; border-radius: 14px; border: 1px solid var(--line); background: rgba(4,7,13,.6); color: var(--ink); min-width: 0;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+.dl a:hover { color: var(--ink); transform: translateY(-3px); border-color: rgba(242,184,75,.7); box-shadow: 0 12px 30px rgba(0,0,0,.4), 0 0 26px rgba(242,184,75,.15); }
+.dl .kind { font: 600 12px/1 var(--display); letter-spacing: .2em; text-transform: uppercase; color: #f2b84b; }
+.dl strong { font-family: var(--display); font-weight: 500; font-size: 20px; }
+.dl span.d { color: var(--mist); font-size: 15px; margin-bottom: 8px; }
+.dl .btn2 { margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px; font: 600 14.5px/1 var(--body);
+  background: #f2b84b; color: #1a1206; box-shadow: 0 0 20px rgba(242,184,75,.35); }
+.dl a:hover .btn2 { background: #ffd27a; }
+.dl .btn2 svg { width: 16px; height: 16px; }
+.dl small { color: var(--mist); font-size: 13px; }
+.smartscreen { margin-top: 20px; display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; border-radius: 12px; background: rgba(47,155,255,.07); border: 1px solid rgba(47,155,255,.25); color: #c9d5e4; font-size: 15px; }
+.smartscreen svg { flex: none; width: 22px; height: 22px; color: var(--glow); margin-top: 1px; }
+.smartscreen b { color: var(--ink); }
+.source { margin: 14px 0 0; font-size: 13.5px; color: var(--mist); }
 </style>
 
 <header class="bar">
@@ -387,11 +410,35 @@ html.calm *, html.calm *::before, html.calm *::after { animation-play-state: pau
           <p>Google's free remote help, through the Chrome browser. Share a one-time access code and you're connected.</p>
         </article>
         <article class="tool own">
-          <span class="badge">Coming soon</span>
+          <span class="badge">Available now</span>
           <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 5l12 5v9c0 8-5.4 13.5-12 16-6.6-2.5-12-8-12-16v-9z"/><path d="M14 21l4 4 8-9"/></svg>
           <h3>Juno Remote</h3>
-          <p>Our own secure connector, running through our own server rather than a third party. Being built now and available here soon: download it from this site, run it without installing, and read out the code. Office versions for regular clients, too.</p>
+          <p>Our own secure connector, running through our own server rather than a third party. Run it without installing and read out the code, or install it for permanent access. <a href="#download">Download below</a>.</p>
         </article>
+      </div>
+
+      <div class="get" id="download">
+        <h3>Download Juno Remote</h3>
+        <p>Our own remote support connector for Windows. Choose the one that fits: a one-off session, or permanent access for regular clients.</p>
+        <div class="dl">
+          <a href="https://github.com/loonytunes1234/remote-support/releases/download/rickburn-1.5.3/RickBurnRemoteSupport.exe" download>
+            <span class="kind">Instant support · no install</span>
+            <strong>Rick Burn Remote Support</strong>
+            <span class="d">For a one-off session. Run it, and it shows an ID and a one-time password: read those out to us and we connect. Nothing is installed, and nothing is left running afterwards.</span>
+            <span class="btn2"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v9M4 7l4 4 4-4M3 14h10"/></svg>Download for Windows</span>
+            <small>RickBurnRemoteSupport.exe · about 25 MB</small>
+          </a>
+          <a href="https://github.com/loonytunes1234/remote-support/releases/download/rickburn-access-1.5.3/RickBurnRemoteAccess.exe" download>
+            <span class="kind">Full install · regular clients</span>
+            <strong>Rick Burn Remote Access</strong>
+            <span class="d">Installs and starts with Windows, with a permanent password, so we can help whenever you need it without you being at the computer. It can also connect out, for example from home to your work PC.</span>
+            <span class="btn2"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v9M4 7l4 4 4-4M3 14h10"/></svg>Download for Windows</span>
+            <small>RickBurnRemoteAccess.exe · about 25 MB</small>
+          </a>
+        </div>
+        <div class="smartscreen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3l8 3.5v6c0 4.6-3.4 8-8 9.5-4.6-1.5-8-4.9-8-9.5v-6z"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div>If Windows shows <b>“Windows protected your PC”</b>, click <b>More info</b>, then <b>Run anyway</b>. That message appears for new apps that aren't yet widely downloaded; it is safe to continue. Mac versions are coming soon.</div></div>
+        <p class="source">Built on RustDesk (open source). Source code: <a href="https://github.com/loonytunes1234/remote-support">github.com/loonytunes1234/remote-support</a></p>
       </div>
     </div>
   </section>
