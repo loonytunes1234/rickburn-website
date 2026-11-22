@@ -61,6 +61,9 @@ h2 { font-family: var(--display); font-weight: 400; font-size: clamp(28px, 4vw, 
 .t-time { font: 400 14px/1 var(--display); color: var(--mist); font-variant-numeric: tabular-nums; }
 .t-link { font-size: 15px; }
 
+.track.embed { display: block; padding: 18px 0; }
+.track.embed iframe { display: block; width: 100%; border: 0; border-radius: 12px; background: var(--deep); }
+.track.embed .t-note { margin: 0 0 10px; }
 .empty { display: flex; gap: 18px; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--line); color: var(--mist); }
 .empty .ring { flex: none; width: 48px; height: 48px; border-radius: 50%; border: 1px dashed var(--line); display: grid; place-items: center; color: var(--line); }
 .empty .ring svg { width: 18px; height: 18px; }
@@ -214,10 +217,13 @@ html.calm *, html.calm *::before, html.calm *::after { animation-play-state: pau
 /* The track list. Add one line per track:
    - audio file published with the site:  { title: "…", note: "…", file: "audio/name.mp3" }
    - track hosted elsewhere (link out):    { title: "…", note: "…", link: "https://soundcloud.com/…" }
+   - a service's own player (embed):       { title: "…", note: "…", embed: "<the src from the service's embed code>", height: 152 }
 */
 var TRACKS = {
   songs: [],
-  soundtracks: []
+  soundtracks: [
+    { title: "Pt:2 Closing The Distance", embed: "https://open.spotify.com/embed/track/77OkP1n8c8U3o2Y4Wx5qJZ?utm_source=generator", height: 152 }
+  ]
 };
 
 (function () {
@@ -236,6 +242,14 @@ var TRACKS = {
     list.forEach(function (t, i) {
       var li = document.createElement('li');
       li.className = 'track';
+      if (t.embed) {      // the service's own player (Spotify, Apple Music, YouTube, SoundCloud, Bandcamp)
+        li.className = 'track embed';
+        li.innerHTML = (t.note ? '<p class="t-note">' + esc(t.note) + '</p>' : '') +
+          '<iframe title="' + esc(t.title) + '" src="' + esc(t.embed) + '" height="' + (t.height || 152) + '" loading="lazy" ' +
+          'allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+        ul.appendChild(li);
+        return;
+      }
       if (t.file) {
         li.innerHTML = '<button class="play" type="button" id="' + id + '-' + i + '" aria-label="Play ' + esc(t.title) + '">' + playIcon + '</button>' +
           '<div><p class="t-name">' + esc(t.title) + '</p>' + (t.note ? '<p class="t-note">' + esc(t.note) + '</p>' : '') + '<div class="t-bar"><i></i></div></div>' +
