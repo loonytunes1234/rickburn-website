@@ -244,6 +244,10 @@ html.calm *, html.calm *::before, html.calm *::after { animation-play-state: pau
 .dl a:hover .btn2 { background: #ffd27a; }
 .dl .btn2 svg { width: 16px; height: 16px; }
 .dl small { color: var(--mist); font-size: 13px; }
+.dl .regular { display: flex; flex-direction: column; gap: 8px; padding: 22px; border-radius: 14px; border: 1px dashed rgba(242,184,75,.4); background: rgba(4,7,13,.35); min-width: 0; }
+.dl .regular strong { font-family: var(--display); font-weight: 500; font-size: 20px; }
+.dl .regular .btn3 { margin-top: auto; align-self: flex-start; padding: 10px 16px; border-radius: 999px; border: 1px solid #f2b84b; color: var(--ink); font: 600 14px/1 var(--body); }
+.dl .regular .btn3:hover { background: rgba(242,184,75,.15); color: var(--ink); }
 .smartscreen { margin-top: 20px; display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; border-radius: 12px; background: rgba(47,155,255,.07); border: 1px solid rgba(47,155,255,.25); color: #c9d5e4; font-size: 15px; }
 .smartscreen svg { flex: none; width: 22px; height: 22px; color: var(--glow); margin-top: 1px; }
 .smartscreen b { color: var(--ink); }
@@ -427,13 +431,13 @@ html.calm *, html.calm *::before, html.calm *::after { animation-play-state: pau
           <span class="badge">Available now</span>
           <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 5l12 5v9c0 8-5.4 13.5-12 16-6.6-2.5-12-8-12-16v-9z"/><path d="M14 21l4 4 8-9"/></svg>
           <h3>Juno Remote</h3>
-          <p>Our own secure connector, running through our own server rather than a third party. Run it without installing and read out the code, or install it for permanent access. <a href="#download">Download below</a>.</p>
+          <p>Our own secure connector, running through our own server rather than a third party. Run it without installing and read out the code; regular clients get permanent access set up by us. <a href="#download">Download below</a>.</p>
         </article>
       </div>
 
       <div class="get" id="download">
         <h3>Download Juno Remote</h3>
-        <p>Our own remote support connector for Windows. Choose the one that fits: a one-off session, or permanent access for regular clients.</p>
+        <p>Our own remote support connector for Windows. Download it for a one-off session; regular clients get permanent access set up by us.</p>
         <div class="dl">
           <a href="https://github.com/loonytunes1234/remote-support/releases/download/rickburn-1.5.3/RickBurnRemoteSupport.exe" download>
             <span class="kind">Instant support · no install</span>
@@ -442,13 +446,12 @@ html.calm *, html.calm *::before, html.calm *::after { animation-play-state: pau
             <span class="btn2"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v9M4 7l4 4 4-4M3 14h10"/></svg>Download for Windows</span>
             <small>RickBurnRemoteSupport.exe · about 25 MB</small>
           </a>
-          <a href="https://github.com/loonytunes1234/remote-support/releases/download/rickburn-access-1.5.3/RickBurnRemoteAccess-Install.exe" download>
+          <div class="regular">
             <span class="kind">Full install · regular clients</span>
             <strong>Rick Burn Remote Access</strong>
-            <span class="d">Installs and starts with Windows, with a permanent password, so we can help whenever you need it without you being at the computer. It can also connect out, for example from home to your work PC.</span>
-            <span class="btn2"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v9M4 7l4 4 4-4M3 14h10"/></svg>Download for Windows</span>
-            <small>RickBurnRemoteAccess-Install.exe · about 25 MB · run it, then click “Accept and Install”</small>
-          </a>
+            <span class="d">Permanent access that installs and starts with Windows, so we can help whenever you need it without you being at the computer. <b style="color:var(--ink);font-weight:600">Not available for public download:</b> available directly from Rick Burn Consulting for regular clients.</span>
+            <a class="btn3" href="#contact">Ask about permanent access</a>
+          </div>
         </div>
         <div class="smartscreen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3l8 3.5v6c0 4.6-3.4 8-8 9.5-4.6-1.5-8-4.9-8-9.5v-6z"/><path d="M12 8v5M12 16h.01"/></svg>
           <div>If Windows shows <b>“Windows protected your PC”</b>, click <b>More info</b>, then <b>Run anyway</b>. That message appears for new apps that aren't yet widely downloaded; it is safe to continue. Mac versions are coming soon.</div></div>
