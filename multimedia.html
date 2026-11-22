@@ -63,6 +63,10 @@ h2 { font-family: var(--display); font-weight: 400; font-size: clamp(28px, 4vw, 
 
 .track.embed { display: block; padding: 18px 0; }
 .track.embed iframe { display: block; width: 100%; border: 0; border-radius: 12px; background: var(--deep); }
+.tracks.videos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; border-top: 0; }
+@media (max-width: 700px) { .tracks.videos { grid-template-columns: 1fr; } }
+.tracks.videos .track.embed { padding: 0; border-bottom: 0; }
+.tracks.videos iframe.video { max-width: none; }
 .track.embed iframe.video { aspect-ratio: 16 / 9; height: auto; max-width: 720px; }
 .track.embed .t-note { margin: 0 0 10px; }
 .empty { display: flex; gap: 18px; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--line); color: var(--mist); }
@@ -223,7 +227,8 @@ html.calm *, html.calm *::before, html.calm *::after { animation-play-state: pau
 var TRACKS = {
   songs: [],
   soundtracks: [
-    { title: "Pt:2 Closing The Distance", embed: "https://www.youtube-nocookie.com/embed/5qc-zpFB7pU?rel=0", video: true }
+    { title: "Pt:2 Closing The Distance", embed: "https://www.youtube-nocookie.com/embed/5qc-zpFB7pU?rel=0", video: true },
+    { title: "Here There Were Oceans", embed: "https://www.youtube-nocookie.com/embed/NfXw2ZssfOg?rel=0", video: true }
   ]
 };
 
@@ -236,6 +241,7 @@ var TRACKS = {
 
   function render(id, list, kind) {
     var ul = document.getElementById(id);
+    if (list.length && list.every(function (t) { return t.video; })) ul.classList.add('videos');   // players side by side
     if (!list.length) {
       ul.innerHTML = '<li class="empty"><span class="ring">' + playIcon + '</span><p>' + kind + ' will be added here soon.</p></li>';
       return;
