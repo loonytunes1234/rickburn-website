@@ -251,6 +251,8 @@ html.calm *, html.calm *::before, html.calm *::after { animation-play-state: pau
 .dl .paused { display: flex; flex-direction: column; gap: 8px; padding: 22px; border-radius: 14px; border: 1px solid var(--line); background: rgba(4,7,13,.6); min-width: 0; }
 .dl .paused strong { font-family: var(--display); font-weight: 500; font-size: 20px; }
 .dl .btn2.off { background: transparent; color: var(--mist); border: 1px dashed var(--line); box-shadow: none; cursor: default; }
+.get .soon { display: inline-block; vertical-align: middle; margin-left: 10px; padding: 6px 10px; border-radius: 999px; font: 600 11.5px/1 var(--display); letter-spacing: .14em; text-transform: uppercase; color: #ffe2a6; border: 1px solid rgba(242,184,75,.6); background: rgba(242,184,75,.1); }
+.smartscreen[hidden] { display: none; }
 .smartscreen { margin-top: 20px; display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; border-radius: 12px; background: rgba(47,155,255,.07); border: 1px solid rgba(47,155,255,.25); color: #c9d5e4; font-size: 15px; }
 .smartscreen svg { flex: none; width: 22px; height: 22px; color: var(--glow); margin-top: 1px; }
 .smartscreen b { color: var(--ink); }
@@ -439,15 +441,15 @@ html.calm *, html.calm *::before, html.calm *::after { animation-play-state: pau
       </div>
 
       <div class="get" id="download">
-        <h3>Download Juno Remote</h3>
-        <p>Our own remote support connector for Windows. Download it for a one-off session; existing clients get permanent access set up by us.</p>
+        <h3>Juno Remote <span class="soon">Coming soon</span></h3>
+        <p>Our own remote support connector for Windows is nearly ready. Until then we use TeamViewer or Chrome Remote Desktop, so just <a href="#contact">call or email us</a> and we’ll get you connected.</p>
         <div class="dl">
           <div class="paused">
             <span class="kind">Instant support · no install</span>
             <strong>Rick Burn Remote Support</strong>
             <span class="d">For a one-off session. Run it, and it shows an ID and a one-time password: read those out to us and we connect. Nothing is installed, and nothing is left running afterwards.</span>
-            <span class="btn2 off">Download temporarily unavailable</span>
-            <small>Please <a href="#contact">call or email us</a> and we’ll get you connected.</small>
+            <span class="btn2 off">Coming soon</span>
+            <small>Download available here soon.</small>
           </div>
           <div class="regular">
             <span class="kind">Full install · existing clients only</span>
@@ -456,7 +458,7 @@ html.calm *, html.calm *::before, html.calm *::after { animation-play-state: pau
             <a class="btn3" href="#contact">Ask about permanent access</a>
           </div>
         </div>
-        <div class="smartscreen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3l8 3.5v6c0 4.6-3.4 8-8 9.5-4.6-1.5-8-4.9-8-9.5v-6z"/><path d="M12 8v5M12 16h.01"/></svg>
+        <div class="smartscreen" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3l8 3.5v6c0 4.6-3.4 8-8 9.5-4.6-1.5-8-4.9-8-9.5v-6z"/><path d="M12 8v5M12 16h.01"/></svg>
           <div>If Windows shows <b>“Windows protected your PC”</b>, click <b>More info</b>, then <b>Run anyway</b>. That message appears for new apps that aren't yet widely downloaded; it is safe to continue. Mac versions are coming soon.</div></div>
         <p class="source">Built on RustDesk (open source). Source code: <a href="https://github.com/loonytunes1234/remote-support">github.com/loonytunes1234/remote-support</a></p>
       </div>
