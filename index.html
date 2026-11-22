@@ -150,7 +150,13 @@ h2 { font-family: var(--display); font-weight: 400; font-size: clamp(30px, 4.4vw
 .contact .glowline { position: absolute; left: -10%; right: -10%; bottom: -40px; height: 220px; pointer-events: none;
   background: radial-gradient(60% 60% at 70% 100%, rgba(47,155,255,.28), transparent 70%); }
 .contact .wrap { position: relative; }
-.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 36px; max-width: 820px; }
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 36px; }
+@media (max-width: 1000px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.card.act { color: var(--ink); cursor: pointer; transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+.card.act:hover { color: var(--ink); transform: translateY(-3px); border-color: color-mix(in srgb, var(--volt) 60%, var(--line)); box-shadow: 0 12px 30px rgba(0,0,0,.4), 0 0 26px rgba(47,155,255,.2); }
+.card.act .v { user-select: auto; }
+.card .go { flex: none; font: 600 13.5px/1 var(--body); padding: 10px 16px; border-radius: 999px; background: var(--volt); color: #021022; box-shadow: 0 0 18px rgba(47,155,255,.45); white-space: nowrap; }
+.card.act:hover .go { background: var(--glow); }
 @media (max-width: 700px) { .cards { grid-template-columns: 1fr; } }
 .card {
   display: flex; align-items: center; gap: 16px; padding: 18px 20px; border-radius: 12px;
@@ -428,13 +434,18 @@ footer em { color: var(--ink); }
     <div class="wrap">
       <p class="eyebrow">Contact</p>
       <h2 id="contact-h">Tell us what you need</h2>
-      <p class="intro">Send a short note about the job and we'll get back to you.</p>
+      <p class="intro">Send us a note and we'll get back to you.</p>
       <div class="cards">
-        <div class="card">
+        <a class="card act" href="mailto:rick@rickburn.net">
           <svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="6" width="20" height="14" rx="2"/><path d="M3.5 7l9.5 7 9.5-7"/></svg>
-          <div class="txt"><div class="k">Email</div><div class="v" id="email">rick@rickburn.net</div></div>
-          <button class="copy" type="button" data-copy="email" id="copy-email">Copy</button>
-        </div>
+          <div class="txt"><div class="k">Email</div><div class="v">rick@rickburn.net</div></div>
+          <span class="go">Email us</span>
+        </a>
+        <a class="card act" href="tel:+447854984334">
+          <svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7.5 3.5h3l1.6 4.8-2.2 1.5a12 12 0 0 0 6.3 6.3l1.5-2.2 4.8 1.6v3a2 2 0 0 1-2.2 2C11 19.9 6.1 15 5.5 5.7a2 2 0 0 1 2-2.2z"/></svg>
+          <div class="txt"><div class="k">Phone</div><div class="v">07854 984334</div></div>
+          <span class="go">Call</span>
+        </a>
         <div class="card">
           <svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="13" cy="13" r="10"/><path d="M3 13h20M13 3c3 3 4 6.5 4 10s-1 7-4 10M13 3c-3 3-4 6.5-4 10s1 7 4 10"/></svg>
           <div class="txt"><div class="k">Web</div><div class="v" id="web">www.rickburn.net</div></div>
