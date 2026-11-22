@@ -28,7 +28,7 @@ a:hover { color: var(--ink); }
 :focus-visible { outline: 2px solid var(--glow); outline-offset: 3px; border-radius: 4px; }
 .wrap { max-width: 1180px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 
-.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--night) 82%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent); }
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--night) 94%, transparent); border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent); }
 .bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
 .bar .mini { font-family: var(--display); font-weight: 500; font-size: 17px; color: var(--ink); white-space: nowrap; }
 .bar .mini span { color: var(--volt); }
@@ -46,10 +46,10 @@ a:hover { color: var(--ink); }
   background: radial-gradient(60% 90% at 25% 50%, color-mix(in srgb, var(--night) 80%, transparent), transparent 75%); }
 .orbit { position: absolute; z-index: 1; right: max(0px, calc(50vw - 640px)); top: 50%; width: 520px; height: 520px; transform: translateY(-50%); pointer-events: none; }
 .orbit::before { content: ""; position: absolute; inset: 22% 22%; border-radius: 50%;
-  background: radial-gradient(circle, rgba(124,198,255,.35), rgba(47,155,255,.12) 45%, transparent 70%); filter: blur(10px); animation: pulse 4s ease-in-out infinite; }
+  background: radial-gradient(circle, rgba(124,198,255,.3), rgba(47,155,255,.1) 45%, transparent 72%); animation: pulse 4s ease-in-out infinite; }
 .orbit .ring { position: absolute; inset: 8%; border-radius: 50%; border: 1px solid rgba(124,198,255,.18); transform: rotateX(68deg); box-shadow: 0 0 40px rgba(47,155,255,.25), inset 0 0 40px rgba(47,155,255,.2); }
 .orbit .ring.r2 { inset: 0; border-color: rgba(54,224,138,.14); transform: rotateX(68deg) rotateY(14deg); }
-.orbit img { position: absolute; left: 50%; top: 50%; width: 92px; height: 92px; margin: -46px 0 0 -46px; will-change: transform; filter: drop-shadow(0 10px 24px rgba(0,0,0,.6)) drop-shadow(0 0 18px rgba(47,155,255,.35)); }
+.orbit img { position: absolute; left: 50%; top: 50%; width: 92px; height: 92px; margin: -46px 0 0 -46px; will-change: transform, opacity; }
 .orbit .core { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center; font: 500 12px/1.3 var(--display); letter-spacing: .3em; color: var(--glow); text-shadow: 0 0 14px var(--volt); }
 .orbit .core b { display: block; font-size: 44px; letter-spacing: 0; color: var(--ink); font-weight: 500; }
 @keyframes pulse { 50% { opacity: .55; transform: scale(.92); } }
@@ -59,7 +59,8 @@ a:hover { color: var(--ink); }
 .eyebrow { font: 500 13px/1 var(--display); letter-spacing: .32em; text-transform: uppercase; color: var(--volt); margin: 0 0 14px; }
 h1 { font-family: var(--display); font-weight: 400; font-size: clamp(40px, 7vw, 80px); line-height: 1.02; letter-spacing: -.02em; margin: 0 0 20px; text-shadow: 0 0 30px rgba(124,198,255,.2); }
 h1 span, .shine { background: linear-gradient(100deg, var(--volt) 0%, var(--glow) 30%, #ffffff 45%, var(--glow) 60%, var(--volt) 100%); background-size: 250% 100%;
-  -webkit-background-clip: text; background-clip: text; color: transparent; animation: shine 6s linear infinite; text-shadow: none; }
+  -webkit-background-clip: text; background-clip: text; color: transparent; background-position: 100% 0; text-shadow: none; }
+.shine.play { animation: shine 2.4s ease-in-out 1; }
 @keyframes shine { from { background-position: 100% 0; } to { background-position: -150% 0; } }
 .lede { margin: 0; max-width: 58ch; color: #c9d5e4; font-size: 18px; }
 
@@ -68,7 +69,7 @@ h1 span, .shine { background: linear-gradient(100deg, var(--volt) 0%, var(--glow
   padding: 20px 22px; border-radius: 14px; border: 1px solid color-mix(in srgb, var(--amber) 45%, var(--line));
   background: linear-gradient(150deg, rgba(242,184,75,.10), rgba(10,18,32,.7) 60%);
 }
-.status { box-shadow: 0 0 40px rgba(242,184,75,.08); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.status { box-shadow: 0 0 40px rgba(242,184,75,.08); }
 .status .led { animation: pulse 2.2s ease-in-out infinite; flex: none; width: 12px; height: 12px; margin-top: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green), 0 0 22px rgba(54,224,138,.6); }
 .status strong { display: block; font-family: var(--display); font-weight: 500; font-size: 18px; color: var(--ink); margin-bottom: 4px; }
 .status p { margin: 0; color: var(--mist); }
@@ -155,7 +156,7 @@ dialog {
   box-shadow: 0 30px 90px rgba(0,0,0,.7), 0 0 60px color-mix(in srgb, var(--tint, var(--volt)) 15%, transparent);
   overflow: hidden;
 }
-dialog::backdrop { background: rgba(2,4,8,.78); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+dialog::backdrop { background: rgba(2,4,8,.9); }
 dialog[open] { display: flex; flex-direction: column; animation: rise .22s ease; }
 @keyframes rise { from { opacity: 0; transform: translateY(14px) scale(.985); } }
 @media (prefers-reduced-motion: reduce) { dialog[open] { animation: none; } }
@@ -244,7 +245,7 @@ footer em { color: var(--ink); }
     <div class="orbit" id="orbit" aria-hidden="true"><div class="ring"></div><div class="ring r2"></div><div class="core"><b id="count">12</b>APPS</div></div>
     <div class="wrap">
       <p class="eyebrow">App development</p>
-      <h1 id="apps-title">Apps built <span>here</span></h1>
+      <h1 id="apps-title">Apps built <span class="shine">here</span></h1>
       <p class="lede">A family of apps written for the Mac, several with iPad and Apple TV companions that work from the main Mac at home. Windows versions are in progress.</p>
       <div class="status" role="note">
         <span class="led" aria-hidden="true"></span>
@@ -642,7 +643,8 @@ var APPS = [
   var orbit = document.getElementById('orbit'), imgs = [];
   document.getElementById('count').textContent = APPS.length;
   APPS.forEach(function (a) { var im = document.createElement('img'); im.src = a.icon; im.alt = ''; orbit.appendChild(im); imgs.push(im); });
-  function spinOrbit(t) {
+  var orbitLast = -1e9, orbitRaf = 0, orbitOn = true;
+  function placeOrbit(t) {
     var R = 215, n = imgs.length;
     imgs.forEach(function (im, i) {
       var ang = (i / n) * Math.PI * 2 + t * .00018;
@@ -651,44 +653,110 @@ var APPS = [
       im.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(' + sc + ')';
       im.style.zIndex = Math.round(z * 100) + 100; im.style.opacity = .45 + (z + 1) * .275;
     });
-    if (!reduce) requestAnimationFrame(spinOrbit);
   }
-  requestAnimationFrame(spinOrbit);
+  function spinOrbit(t) {
+    orbitRaf = 0;
+    if (!orbitOn || document.hidden) return;
+    if (t - orbitLast >= 33) { orbitLast = t; placeOrbit(t); }
+    orbitRaf = requestAnimationFrame(spinOrbit);
+  }
+  function wakeOrbit() { if (!orbitRaf && !reduce && orbitOn && !document.hidden) orbitRaf = requestAnimationFrame(spinOrbit); }
+  placeOrbit(0);
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { orbitOn = es[0].isIntersecting; wakeOrbit(); }).observe(orbit);
+  document.addEventListener('visibilitychange', wakeOrbit);
+  wakeOrbit();
 
-  // Light waves behind the hero, as on the main page
-  var canvas = document.getElementById('waves'), ctx = canvas.getContext('2d'), w = 0, h = 0;
-  function size() { var r = canvas.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2); w = r.width; h = r.height; canvas.width = w * dpr; canvas.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
-  var bundles = [
-    { y: .78, amp: .10, freq: 1.5, speed: .00022, lines: 16, spread: .05, hue: 205, alpha: .5 },
-    { y: .66, amp: .13, freq: 1.0, speed: -.00015, lines: 12, spread: .06, hue: 150, alpha: .28 },
-    { y: .90, amp: .05, freq: 2.2, speed: .0003, lines: 9, spread: .03, hue: 198, alpha: .4 }
-  ];
-  function draw(t) {
-    ctx.clearRect(0, 0, w, h); ctx.globalCompositeOperation = 'lighter';
-    var step = Math.max(4, w / 220);
-    bundles.forEach(function (b) {
-      for (var i = 0; i < b.lines; i++) {
-        var k = i / (b.lines - 1) - .5; ctx.beginPath();
-        for (var x = 0; x <= w + step; x += step) {
-          var u = x / w, rise = Math.pow(u, 1.5);
-          var y = h * (b.y - .2 * rise) + Math.sin(u * Math.PI * b.freq + t * b.speed * 6 + k * 1.2) * h * b.amp * (.35 + rise) + k * h * b.spread * (.4 + rise * 1.4);
-          if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  // Light waves, drawn lightly: a soft wide stroke under a thin bright one (no canvas shadow blur,
+  // which was the heavy part), at most 30 frames a second, a capped resolution, and paused
+  // whenever the waves are off screen or the tab is hidden.
+  function lightWaves(canvas, bundles, extra) {
+    var ctx = canvas.getContext('2d');
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var w = 0, h = 0, onScreen = true, last = -1e9, raf = 0;
+    function size() {
+      var r = canvas.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      w = r.width; h = r.height;
+      canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    function draw(t) {
+      ctx.clearRect(0, 0, w, h);
+      ctx.globalCompositeOperation = 'lighter';
+      var step = Math.max(8, w / 120);
+      bundles.forEach(function (b) {
+        for (var i = 0; i < b.lines; i++) {
+          var k = i / (b.lines - 1) - .5, mid = i === Math.floor(b.lines / 2);
+          ctx.beginPath();
+          for (var x = 0; x <= w + step; x += step) {
+            var u = x / w, rise = Math.pow(u, b.pow || 1.6);
+            var y = h * (b.y - (b.lift || .18) * rise)
+              + Math.sin(u * Math.PI * b.freq + t * b.speed * 6 + k * 1.2) * h * b.amp * (.35 + rise)
+              + k * h * b.spread * (.4 + rise * 1.4);
+            if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          }
+          var a = b.alpha * (1 - Math.abs(k) * 1.3);
+          var g = ctx.createLinearGradient(0, 0, w, 0);
+          g.addColorStop(0, 'hsla(' + b.hue + ',100%,60%,0)');
+          g.addColorStop(.35, 'hsla(' + b.hue + ',100%,60%,' + (a * .35) + ')');
+          g.addColorStop(.8, 'hsla(' + (b.hue - 5) + ',100%,70%,' + a + ')');
+          g.addColorStop(1, 'hsla(' + b.hue + ',100%,62%,' + (a * .7) + ')');
+          ctx.strokeStyle = g;
+          if (mid || i % 3 === 0) {               // the glow: a wide faint stroke under the line
+            ctx.globalAlpha = mid ? .28 : .12;
+            ctx.lineWidth = mid ? 9 : 4;
+            ctx.stroke();
+          }
+          ctx.globalAlpha = 1;
+          ctx.lineWidth = mid ? 1.6 : .7;
+          ctx.stroke();
         }
-        var g = ctx.createLinearGradient(0, 0, w, 0), al = b.alpha * (1 - Math.abs(k) * 1.3);
-        g.addColorStop(0, 'hsla(' + b.hue + ',100%,60%,0)'); g.addColorStop(.4, 'hsla(' + b.hue + ',100%,60%,' + al * .35 + ')');
-        g.addColorStop(.85, 'hsla(' + b.hue + ',100%,70%,' + al + ')'); g.addColorStop(1, 'hsla(' + b.hue + ',100%,62%,' + al * .6 + ')');
-        ctx.strokeStyle = g; var mid = i === Math.floor(b.lines / 2);
-        ctx.lineWidth = mid ? 1.6 : .7; ctx.shadowColor = 'hsla(' + b.hue + ',100%,60%,.9)'; ctx.shadowBlur = mid ? 14 : 4; ctx.stroke();
-      }
-    });
-    ctx.globalCompositeOperation = 'source-over';
+      });
+      ctx.globalCompositeOperation = 'source-over';
+      if (extra) extra(ctx, w, h, t);
+    }
+    function loop(t) {
+      raf = 0;
+      if (!onScreen || document.hidden) return;
+      if (t - last >= 33) { last = t; draw(t); }
+      raf = requestAnimationFrame(loop);
+    }
+    function wake() { if (!raf && !still && onScreen && !document.hidden) raf = requestAnimationFrame(loop); }
+    size(); draw(0);
+    window.addEventListener('resize', function () { size(); draw(last > 0 ? last : 0); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { onScreen = es[0].isIntersecting; wake(); }).observe(canvas);
+    }
+    document.addEventListener('visibilitychange', wake);
+    wake();
   }
-  function loop(t) { draw(t); if (!reduce) requestAnimationFrame(loop); }
-  size(); window.addEventListener('resize', function () { size(); if (reduce) draw(0); }); requestAnimationFrame(loop);
+
+
+  lightWaves(document.getElementById('waves'), [
+    { y: .78, amp: .10, freq: 1.5, speed: .00022, lines: 12, spread: .05, hue: 205, alpha: .5, pow: 1.5, lift: .2 },
+    { y: .66, amp: .13, freq: 1.0, speed: -.00015, lines: 9, spread: .06, hue: 150, alpha: .28, pow: 1.5, lift: .2 },
+    { y: .90, amp: .05, freq: 2.2, speed: .0003, lines: 7, spread: .03, hue: 198, alpha: .4, pow: 1.5, lift: .2 }
+  ]);
 
   // Open a panel straight from a link such as apps.html#mail
   var want = location.hash.slice(1);
   APPS.forEach(function (a) { if (a.id === want) open(a); });
+
+  // The shimmer on headings sweeps once each time a heading comes into view (it used to run
+  // non-stop on every heading, which kept the computer busy).
+  (function () {
+    var shines = document.querySelectorAll('.shine');
+    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.remove('play'); void e.target.offsetWidth; e.target.classList.add('play'); }
+      });
+    }, { threshold: .6 });
+    shines.forEach(function (el) {
+      el.addEventListener('animationend', function () { el.classList.remove('play'); });
+      el.addEventListener('mouseenter', function () { el.classList.remove('play'); void el.offsetWidth; el.classList.add('play'); });
+      io.observe(el);
+    });
+  })();
 })();
 </script>
 </body>

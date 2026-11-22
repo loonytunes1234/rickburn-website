@@ -26,7 +26,7 @@ a:hover { color: var(--ink); }
 :focus-visible { outline: 2px solid var(--glow); outline-offset: 3px; border-radius: 4px; }
 .wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 
-.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--night) 82%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent); }
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--night) 94%, transparent); border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent); }
 .bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
 .bar .mini { font-family: var(--display); font-weight: 500; font-size: 17px; color: var(--ink); white-space: nowrap; }
 .bar .mini span { color: var(--volt); }
@@ -237,7 +237,7 @@ var TRACKS = {
   var c = document.getElementById('meter'), ctx = c.getContext('2d');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var w, h, dpr;
-  function size() { var r = c.getBoundingClientRect(); dpr = Math.min(window.devicePixelRatio || 1, 2); w = r.width; h = r.height; c.width = w * dpr; c.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+  function size() { var r = c.getBoundingClientRect(); dpr = Math.min(window.devicePixelRatio || 1, 1.5); w = r.width; h = r.height; c.width = w * dpr; c.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
   function draw(t) {
     ctx.clearRect(0, 0, w, h);
     var n = Math.max(16, Math.floor(w / 26)), bw = w / n, seg = 7, gap = 3;
@@ -254,9 +254,14 @@ var TRACKS = {
       }
     }
   }
-  function loop(t) { draw(t); if (!reduce) requestAnimationFrame(loop); }
-  size(); window.addEventListener('resize', function () { size(); if (reduce) draw(0); });
-  requestAnimationFrame(loop);
+  // At most 30 frames a second, and only while the meter is on screen and the tab is visible.
+  var last = -1e9, raf = 0, onScreen = true;
+  function loop(t) { raf = 0; if (!onScreen || document.hidden) return; if (t - last >= 33) { last = t; draw(t); } raf = requestAnimationFrame(loop); }
+  function wake() { if (!raf && !reduce && onScreen && !document.hidden) raf = requestAnimationFrame(loop); }
+  size(); draw(0); window.addEventListener('resize', function () { size(); draw(last > 0 ? last : 0); });
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { onScreen = es[0].isIntersecting; wake(); }).observe(c);
+  document.addEventListener('visibilitychange', wake);
+  wake();
 })();
 </script>
 </body>
