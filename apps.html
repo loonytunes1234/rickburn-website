@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Apps · Rick Burn</title>
+<meta name="description" content="Mac, iPad and Apple TV apps designed and specified by Rick Burn: music and media apps, and apps for the home.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&family=Figtree:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap">
+<style>
+/* Layout: same night-sky look as the main page. Hero with a "status" notice, then two groups of app panels;
+   clicking a panel opens a large panel with screenshots and the full description. */
+:root {
+  --night: #04070d; --deep: #0a1220; --line: #1b2a40;
+  --ink: #f2f6fb; --mist: #9fb0c6; --volt: #2f9bff; --glow: #7cc6ff;
+  --amber: #f2b84b; --green: #36e08a;
+  --display: "Lexend", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --body: "Figtree", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--night); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--night); }
+a { color: var(--glow); text-decoration: none; }
+a:hover { color: var(--ink); }
+:focus-visible { outline: 2px solid var(--glow); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--night) 82%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent); }
+.bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
+.bar .mini { font-family: var(--display); font-weight: 500; font-size: 17px; color: var(--ink); white-space: nowrap; }
+.bar .mini span { color: var(--volt); }
+.bar nav { display: flex; gap: clamp(14px, 3vw, 32px); font-size: 15px; }
+.bar nav a { color: var(--mist); white-space: nowrap; }
+.bar nav a[aria-current] { color: var(--ink); }
+.bar nav a:hover { color: var(--ink); }
+@media (max-width: 560px) { .bar nav a.opt { display: none; } }
+
+/* ---------- hero ---------- */
+.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line);
+  background: radial-gradient(60% 120% at 85% 0%, rgba(47,155,255,.18), transparent 70%), var(--night); }
+.hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hero::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(60% 90% at 25% 50%, color-mix(in srgb, var(--night) 80%, transparent), transparent 75%); }
+.orbit { position: absolute; z-index: 1; right: max(0px, calc(50vw - 640px)); top: 50%; width: 520px; height: 520px; transform: translateY(-50%); pointer-events: none; }
+.orbit::before { content: ""; position: absolute; inset: 22% 22%; border-radius: 50%;
+  background: radial-gradient(circle, rgba(124,198,255,.35), rgba(47,155,255,.12) 45%, transparent 70%); filter: blur(10px); animation: pulse 4s ease-in-out infinite; }
+.orbit .ring { position: absolute; inset: 8%; border-radius: 50%; border: 1px solid rgba(124,198,255,.18); transform: rotateX(68deg); box-shadow: 0 0 40px rgba(47,155,255,.25), inset 0 0 40px rgba(47,155,255,.2); }
+.orbit .ring.r2 { inset: 0; border-color: rgba(54,224,138,.14); transform: rotateX(68deg) rotateY(14deg); }
+.orbit img { position: absolute; left: 50%; top: 50%; width: 92px; height: 92px; margin: -46px 0 0 -46px; will-change: transform; filter: drop-shadow(0 10px 24px rgba(0,0,0,.6)) drop-shadow(0 0 18px rgba(47,155,255,.35)); }
+.orbit .core { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center; font: 500 12px/1.3 var(--display); letter-spacing: .3em; color: var(--glow); text-shadow: 0 0 14px var(--volt); }
+.orbit .core b { display: block; font-size: 44px; letter-spacing: 0; color: var(--ink); font-weight: 500; }
+@keyframes pulse { 50% { opacity: .55; transform: scale(.92); } }
+@media (max-width: 1100px) { .orbit { opacity: .35; right: -160px; } }
+@media (max-width: 700px) { .orbit { display: none; } }
+.hero .wrap { position: relative; z-index: 2; padding-block: clamp(60px, 9vw, 110px) clamp(48px, 7vw, 80px); }
+.eyebrow { font: 500 13px/1 var(--display); letter-spacing: .32em; text-transform: uppercase; color: var(--volt); margin: 0 0 14px; }
+h1 { font-family: var(--display); font-weight: 400; font-size: clamp(40px, 7vw, 80px); line-height: 1.02; letter-spacing: -.02em; margin: 0 0 20px; text-shadow: 0 0 30px rgba(124,198,255,.2); }
+h1 span, .shine { background: linear-gradient(100deg, var(--volt) 0%, var(--glow) 30%, #ffffff 45%, var(--glow) 60%, var(--volt) 100%); background-size: 250% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent; animation: shine 6s linear infinite; text-shadow: none; }
+@keyframes shine { from { background-position: 100% 0; } to { background-position: -150% 0; } }
+.lede { margin: 0; max-width: 58ch; color: #c9d5e4; font-size: 18px; }
+
+.status {
+  margin-top: 34px; max-width: 700px; display: flex; gap: 18px; align-items: flex-start;
+  padding: 20px 22px; border-radius: 14px; border: 1px solid color-mix(in srgb, var(--amber) 45%, var(--line));
+  background: linear-gradient(150deg, rgba(242,184,75,.10), rgba(10,18,32,.7) 60%);
+}
+.status { box-shadow: 0 0 40px rgba(242,184,75,.08); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.status .led { animation: pulse 2.2s ease-in-out infinite; flex: none; width: 12px; height: 12px; margin-top: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green), 0 0 22px rgba(54,224,138,.6); }
+.status strong { display: block; font-family: var(--display); font-weight: 500; font-size: 18px; color: var(--ink); margin-bottom: 4px; }
+.status p { margin: 0; color: var(--mist); }
+.plat-note { margin-top: 18px; color: var(--mist); font-size: 15.5px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+.credit { position: relative; overflow: hidden; border-bottom: 1px solid var(--line);
+  background: linear-gradient(90deg, rgba(47,155,255,.10), rgba(54,224,138,.08) 60%, rgba(47,155,255,.06)), var(--night); }
+.credit::before { content: ""; position: absolute; left: -30%; right: -30%; top: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--glow), var(--green), transparent); }
+.credit .wrap { padding-block: clamp(26px, 4vw, 40px); display: flex; align-items: center; gap: clamp(16px, 3vw, 28px); }
+.credit .mark { flex: none; width: 54px; height: 54px; border-radius: 14px; display: grid; place-items: center;
+  background: radial-gradient(circle at 35% 30%, #fff, var(--glow) 40%, var(--volt)); color: #021022; box-shadow: 0 0 26px rgba(47,155,255,.55); }
+.credit .mark svg { width: 28px; height: 28px; }
+.credit p { margin: 0; font-family: var(--display); font-weight: 400; font-size: clamp(19px, 2.3vw, 26px); line-height: 1.35; color: var(--ink); text-wrap: balance; }
+.credit p span { color: var(--mist); font-family: var(--body); font-size: clamp(15px, 1.6vw, 17px); display: block; margin-top: 4px; }
+@media (max-width: 520px) { .credit .wrap { align-items: flex-start; } .credit .mark { width: 44px; height: 44px; } }
+
+.looks { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; color: var(--mist); font-size: 15.5px; }
+.looks b { color: var(--ink); font-weight: 600; }
+.swatch { display: inline-flex; align-items: center; gap: 7px; padding: 5px 10px 5px 6px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.03); font: 500 12.5px/1 var(--body); color: var(--ink); white-space: nowrap; }
+.swatch i { width: 14px; height: 14px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(255,255,255,.25); }
+.swatch.on { border-color: var(--glow); box-shadow: 0 0 14px rgba(124,198,255,.35); }
+.swatch.on em { font-style: normal; color: var(--glow); margin-left: 2px; }
+/* ---------- groups ---------- */
+section.group .wrap { padding-block: clamp(56px, 8vw, 96px) 0; }
+section.group:last-of-type .wrap { padding-bottom: clamp(64px, 9vw, 110px); }
+h2 { font-family: var(--display); font-weight: 400; font-size: clamp(28px, 4vw, 42px); line-height: 1.12; letter-spacing: -.015em; margin: 0 0 10px; }
+.intro { color: var(--mist); max-width: 62ch; margin: 0; }
+.music { --tint: var(--volt); --tint2: var(--glow); }
+.home { --tint: var(--green); --tint2: #b6ffd9; }
+.group .eyebrow { color: var(--tint); }
+
+.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin-top: 36px; }
+@media (max-width: 1060px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 780px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .grid { grid-template-columns: 1fr; } }
+
+.app {
+  position: relative; text-align: left; cursor: pointer; color: inherit; font: inherit;
+  display: flex; flex-direction: column; gap: 12px; padding: 24px 22px 22px; border-radius: 16px; min-width: 0;
+  border: 1px solid var(--line);
+  background: linear-gradient(160deg, color-mix(in srgb, var(--tint) 9%, var(--deep)), var(--night) 85%);
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+.app::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; border-radius: 16px 16px 0 0;
+  background: linear-gradient(90deg, transparent, var(--tint) 30%, var(--tint2) 55%, transparent); }
+.app:hover { transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-4px); border-color: color-mix(in srgb, var(--tint) 55%, var(--line)); box-shadow: 0 14px 40px rgba(0,0,0,.45), 0 0 30px color-mix(in srgb, var(--tint) 18%, transparent); }
+.app img.icon { width: 112px; height: 112px; margin: -10px 0 -8px -12px; filter: drop-shadow(0 8px 18px rgba(0,0,0,.55)); transition: transform .3s cubic-bezier(.2,.8,.3,1.4), filter .3s; }
+.app:hover img.icon { transform: translateY(-6px) scale(1.07) rotate(-3deg); filter: drop-shadow(0 16px 26px rgba(0,0,0,.6)) drop-shadow(0 0 22px color-mix(in srgb, var(--tint) 60%, transparent)); }
+.app { transform-style: preserve-3d; isolation: isolate; }
+.app .spot { position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .25s;
+  background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--tint) 26%, transparent), transparent 60%); }
+.app:hover .spot { opacity: 1; }
+.app::after { /* light running round the edge on hover */
+  content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; pointer-events: none; opacity: 0; transition: opacity .3s;
+  background: conic-gradient(from var(--a, 0deg), transparent 0 70%, var(--tint) 82%, var(--tint2) 90%, transparent 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: spin 2.4s linear infinite; }
+.app:hover::after { opacity: 1; }
+@property --a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@keyframes spin { to { --a: 360deg; } }
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } .app::after, h1 span, .shine { animation: none; } }
+.app h3 { font-family: var(--display); font-weight: 500; font-size: 20px; line-height: 1.2; margin: 2px 0 0; }
+.app p { margin: 0; color: var(--mist); font-size: 15px; line-height: 1.5; }
+.app .peek { display: block; margin-top: 4px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); aspect-ratio: 16 / 9; background: #070c16; }
+.app .peek img { width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block; transition: transform .5s ease; }
+.app:hover .peek img { transform: scale(1.06); }
+.app .more { margin-top: auto; padding-top: 6px; font-size: 14px; color: var(--tint2); display: flex; align-items: center; gap: 6px; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: 500 11.5px/1 var(--display); letter-spacing: .12em; text-transform: uppercase; padding: 5px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink); background: rgba(255,255,255,.03); white-space: nowrap; }
+.chip.mac { border-color: color-mix(in srgb, var(--volt) 60%, var(--line)); }
+.chip.ipad { border-color: color-mix(in srgb, var(--green) 60%, var(--line)); }
+.chip.tv { border-color: color-mix(in srgb, #b58cff 60%, var(--line)); }
+.chip.soon { color: var(--mist); border-style: dashed; }
+
+/* ---------- the large panel ---------- */
+dialog {
+  width: min(1120px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); padding: 0; border-radius: 20px;
+  border: 1px solid color-mix(in srgb, var(--tint, var(--volt)) 40%, var(--line)); color: var(--ink);
+  background: linear-gradient(170deg, color-mix(in srgb, var(--tint, var(--volt)) 8%, var(--deep)), var(--night) 60%);
+  box-shadow: 0 30px 90px rgba(0,0,0,.7), 0 0 60px color-mix(in srgb, var(--tint, var(--volt)) 15%, transparent);
+  overflow: hidden;
+}
+dialog::backdrop { background: rgba(2,4,8,.78); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+dialog[open] { display: flex; flex-direction: column; animation: rise .22s ease; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px) scale(.985); } }
+@media (prefers-reduced-motion: reduce) { dialog[open] { animation: none; } }
+.d-head { display: flex; align-items: center; gap: 18px; padding: 22px 24px; border-bottom: 1px solid var(--line); }
+.d-head img { width: 72px; height: 72px; flex: none; filter: drop-shadow(0 8px 16px rgba(0,0,0,.5)); }
+.d-head .t { min-width: 0; flex: 1; }
+.d-head h3 { font-family: var(--display); font-weight: 500; font-size: clamp(22px, 3vw, 30px); margin: 0 0 6px; line-height: 1.15; }
+.close { flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; display: grid; place-items: center; }
+.close:hover { border-color: var(--volt); }
+.close svg { width: 16px; height: 16px; }
+.d-body { overflow-y: auto; padding: 24px; display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 28px; }
+@media (max-width: 860px) { .d-body { grid-template-columns: 1fr; } }
+
+.shot { position: relative; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: #070c16; aspect-ratio: 16 / 10; }
+.shot img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.shot .ph { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 24px; color: var(--mist); font-size: 15px;
+  background:
+    linear-gradient(#0c1626, #0c1626) top / 100% 30px no-repeat,
+    radial-gradient(60% 70% at 50% 60%, color-mix(in srgb, var(--tint, var(--volt)) 12%, transparent), transparent 70%), #070c16; }
+.shot .ph::before { /* window buttons */
+  content: ""; position: absolute; left: 14px; top: 11px; width: 8px; height: 8px; border-radius: 50%;
+  background: #ff5f57; box-shadow: 14px 0 #febc2e, 28px 0 #28c840; }
+.shot .ph img { width: 96px; height: 96px; margin: 0 auto 12px; opacity: .9; }
+.shot figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 14px 10px; font-size: 14px; color: var(--ink);
+  background: linear-gradient(transparent, rgba(2,4,8,.85)); }
+.shot { cursor: zoom-in; }
+.chip.lookchip { display: inline-flex; align-items: center; gap: 6px; border-color: rgba(124,198,255,.55); color: var(--glow); letter-spacing: .08em; }
+.chip.lookchip i { width: 8px; height: 8px; border-radius: 50%; background: var(--glow); box-shadow: 0 0 8px var(--glow); }
+.shot .lookbadge { position: absolute; top: 12px; left: 12px; padding: 7px 12px; border-radius: 999px; font: 600 12.5px/1 var(--body); letter-spacing: .04em;
+  color: var(--ink); background: rgba(2,4,8,.78); border: 1px solid rgba(124,198,255,.45); pointer-events: none; }
+.shot .zoomhint { position: absolute; top: 12px; right: 12px; display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; font: 600 13.5px/1 var(--body);
+  color: #021022; background: var(--glow); box-shadow: 0 0 0 4px rgba(124,198,255,.18), 0 4px 18px rgba(0,0,0,.5); pointer-events: none; animation: hintpulse 2.6s ease-in-out infinite; }
+.shot .zoomhint svg { width: 15px; height: 15px; }
+.shot:hover .zoomhint { background: #fff; }
+@keyframes hintpulse { 50% { box-shadow: 0 0 0 9px rgba(124,198,255,0), 0 4px 18px rgba(0,0,0,.5); } }
+@media (prefers-reduced-motion: reduce) { .shot .zoomhint { animation: none; } }
+.zoom { position: fixed; inset: 0; z-index: 50; display: none; flex-direction: column; background: #03060b; }
+.zoom.on { display: flex; animation: rise .2s ease; }
+.zoom .z-bar { flex: none; display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+.zoom .z-cap { flex: 1; min-width: 0; color: var(--ink); font-size: 15px; }
+.zoom .z-cap small { display: block; color: var(--mist); font-size: 13px; }
+.zoom .z-stage { flex: 1; min-height: 0; overflow: auto; display: grid; place-items: center; padding: 16px; cursor: zoom-in; }
+.zoom .z-stage img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,.6); }
+.zoom.full .z-stage { place-items: start; cursor: zoom-out; }
+.zoom.full .z-stage img { max-width: none; max-height: none; }
+.zoom .nav { position: absolute; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--line); background: rgba(10,18,32,.85); color: var(--ink); cursor: pointer; display: grid; place-items: center; }
+.zoom .nav:hover { border-color: var(--volt); }
+.zoom .nav.prev { left: 16px; } .zoom .nav.next { right: 16px; }
+.zoom .nav svg, .zoom .close svg { width: 16px; height: 16px; }
+.demo-note { margin: 8px 0 0; font-size: 13px; color: var(--mist); }
+.thumbs { display: flex; gap: 10px; margin-top: 12px; overflow-x: auto; padding-bottom: 4px; }
+.thumbs button { flex: none; width: 112px; aspect-ratio: 16 / 10; border-radius: 8px; overflow: hidden; padding: 0; cursor: pointer; border: 2px solid transparent; background: #070c16; }
+.thumbs button[aria-current="true"] { border-color: var(--tint, var(--volt)); }
+.thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.d-text p { margin: 0 0 14px; color: #c9d5e4; }
+.d-text h4 { font: 500 13px/1 var(--display); letter-spacing: .26em; text-transform: uppercase; color: var(--tint, var(--volt)); margin: 22px 0 12px; }
+.d-text ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 9px; font-size: 15.5px; }
+.d-text li { display: flex; gap: 10px; align-items: baseline; color: #d7e1ee; }
+.d-text li::before { content: ""; flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--tint, var(--volt)); box-shadow: 0 0 8px var(--tint, var(--volt)); transform: translateY(-2px); }
+.d-text .runs { margin-top: 18px; padding: 14px 16px; border-radius: 10px; border: 1px solid var(--line); background: rgba(255,255,255,.025); font-size: 15px; color: var(--mist); }
+.d-text .runs b { color: var(--ink); font-weight: 600; }
+
+footer { border-top: 1px solid var(--line); }
+footer .wrap { padding-block: 26px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; color: var(--mist); font-size: 14px; }
+footer em { color: var(--ink); }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="mini" href="index.html">Rick Burn <span>Consulting</span></a>
+    <nav aria-label="Pages">
+      <a href="index.html" class="opt">IT services</a>
+      <a href="apps.html" aria-current="page">Apps</a>
+      <a href="multimedia.html">Media &amp; Music</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="apps-title">
+    <canvas id="waves" aria-hidden="true"></canvas>
+    <div class="orbit" id="orbit" aria-hidden="true"><div class="ring"></div><div class="ring r2"></div><div class="core"><b id="count">12</b>APPS</div></div>
+    <div class="wrap">
+      <p class="eyebrow">App development</p>
+      <h1 id="apps-title">Apps built <span>here</span></h1>
+      <p class="lede">A family of apps written for the Mac, several with iPad and Apple TV companions that work from the main Mac at home. Windows versions are in progress.</p>
+      <div class="status" role="note">
+        <span class="led" aria-hidden="true"></span>
+        <div>
+          <strong>Full-featured, fully working, used every day</strong>
+          <p>Every app on this page is complete and in daily use in our own home and studio. They need more extensive testing on other people's machines before they are released to the public.</p>
+        </div>
+      </div>
+      <div class="plat-note"><span>Runs on:</span>
+        <span class="chip mac">Mac</span><span class="chip ipad">iPad</span><span class="chip tv">Apple TV</span><span class="chip soon">Windows · in progress</span>
+      </div>
+      <div class="looks"><span><b>7 visual looks in every app</b>, switched from the LOOK menu (the screenshots below show a mix):</span>
+        <span class="swatch"><i style="background:linear-gradient(135deg,#3a3d42,#7dff6b)"></i>Hardware</span>
+        <span class="swatch"><i style="background:linear-gradient(135deg,#5b2a86,#f2a64b)"></i>Glossy</span>
+        <span class="swatch"><i style="background:conic-gradient(#ff5f6d,#ffc371,#47e29a,#4facfe,#b06cff,#ff5f6d)"></i>Colour</span>
+        <span class="swatch"><i style="background:linear-gradient(135deg,#2a1a08,#f2b84b)"></i>Amber</span>
+        <span class="swatch"><i style="background:linear-gradient(135deg,#1b2233,#6ea8ff)"></i>Midnight</span>
+        <span class="swatch"><i style="background:linear-gradient(135deg,rgba(255,255,255,.7),rgba(160,200,255,.25))"></i>Liquid Glass</span>
+        <span class="swatch"><i style="background:linear-gradient(135deg,#04070d,#2f9bff 70%,#7cc6ff)"></i>Rick Burn</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="credit" aria-label="About these apps">
+    <div class="wrap">
+      <div class="mark" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 4.5l6 6L10 24H4v-6z"/><path d="M14.5 7.5l6 6"/></svg></div>
+      <p>Every app designed and specified by <b style="font-weight:500;color:var(--glow)">Rick Burn</b>, based on the real needs of musicians and home users.<span>Each one started as a solution to a problem in our own studio or home, and was shaped feature by feature until it worked the way it should.</span></p>
+    </div>
+  </section>
+
+  <section class="group music" aria-labelledby="music-h">
+    <div class="wrap">
+      <p class="eyebrow">Music and media</p>
+      <h2 id="music-h">Apps for <span class="shine">musicians</span></h2>
+      <p class="intro">Tools for writing, recording and preparing music, built around the way a working musician actually uses them.</p>
+      <div class="grid" id="grid-music"></div>
+    </div>
+  </section>
+
+  <section class="group home" aria-labelledby="home-h">
+    <div class="wrap">
+      <p class="eyebrow">For the home</p>
+      <h2 id="home-h">Apps for <span class="shine">home and business</span></h2>
+      <p class="intro">Mail, accounts, music and films, heating, cameras and the house at a glance, all in the same look and all kept on your own machines.</p>
+      <div class="grid" id="grid-home"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr">2026</span> <em>Rick Burn Consulting</em></span>
+    <span>IT • Media • Creative Solutions</span>
+  </div>
+</footer>
+
+<dialog id="panel" aria-labelledby="d-title">
+  <div class="d-head">
+    <img id="d-icon" alt="">
+    <div class="t">
+      <h3 id="d-title"></h3>
+      <div class="chips" id="d-chips"></div>
+    </div>
+    <button class="close" type="button" id="d-close" aria-label="Close">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg>
+    </button>
+  </div>
+  <div class="d-body">
+    <div>
+      <figure class="shot" id="d-shot" style="margin:0"></figure>
+      <div class="thumbs" id="d-thumbs"></div>
+      <p class="demo-note" id="d-note">Click a screenshot to see it full size. Screenshots come from the app itself, shown in a mix of the seven looks (each picture says which), filled with made-up demo information.</p>
+    </div>
+    <div class="d-text" id="d-text"></div>
+  </div>
+  <div class="zoom" id="zoom" role="dialog" aria-label="Screenshot, full size">
+    <div class="z-bar">
+      <div class="z-cap" id="z-cap"></div>
+      <button class="close" type="button" id="z-close" aria-label="Close full size">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg>
+      </button>
+    </div>
+    <div class="z-stage" id="z-stage"><img id="z-img" alt=""></div>
+    <button class="nav prev" type="button" id="z-prev" aria-label="Previous screenshot"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg></button>
+    <button class="nav next" type="button" id="z-next" aria-label="Next screenshot"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button>
+  </div>
+</dialog>
+
+<script>
+/* The apps. Screenshots go in `shots` as { src: "apps/shots/name.png", caption: "…" },
+   taken from the apps themselves with made-up demo information. */
+var PLAT = { mac: 'Mac', ipad: 'iPad', tv: 'Apple TV', iphone: 'iPhone', soon: 'Windows · in progress' };
+var APPS = [
+  /* ----- music and media ----- */
+  { id: 'workstation', group: 'music', name: 'Juno Music Workstation', icon: 'apps/workstation.png', platforms: ['mac'],
+    short: 'A complete pattern-based studio: MIDI, instruments, audio loops, mixer and finished renders.',
+    text: [
+      'A full music workstation built around looping patterns rather than one long timeline. Each track can loop at its own length, so a 3-beat figure can run against a 4-bar groove, and patterns are chained into a song when the ideas are ready.',
+      'It hosts the Audio Unit and VST3 instruments and effects musicians already own, with each plugin able to run in its own protected helper so one misbehaving plugin cannot take the session down. Audio loops sit on their own lanes, stretched to the tempo and shifted into the song’s key.'
+    ],
+    features: [
+      '24 patterns of up to 32 tracks, each track with its own loop length, delay, transpose and quantise',
+      'Song mode with sections, transposes and mute setups, or record live pattern launches straight into a song',
+      'Audio clip lanes with time-stretch, key matching and a built-in clip editor (trim, fades, pitch, smooth loops)',
+      'Mixer with inserts, send buses, meters and automation of levels, pans and any plugin setting',
+      'Its own reverb, delay, chorus and phaser effects',
+      'Timing correction for recording and plugin delay compensation',
+      'Deep control from Arturia KeyLab keyboards: transport, mixer, instrument knobs and pad colours',
+      'IdeaPad: every pass of the pattern is kept while you jam, so the best take can be picked afterwards',
+      'Renders to WAV with stems, loudness measurement and a ready-for-streaming copy'
+    ],
+    shots: [{ src: "apps/shots/workstation-1.jpg", caption: "The Chorus pattern playing: eight tracks, each looping at its own length, with the mixer below", look: "Hardware" }, { src: "apps/shots/workstation-3c.jpg", caption: "The clip editor: beat-snapped edges, hit marks, pitch and smooth loops", look: "Hardware" }, { src: "apps/shots/workstation-2.jpg", caption: "The FORGE page: audio loops placed on bars, stretched to the tempo and key", look: "Hardware" }] },
+  { id: 'stems', group: 'music', name: 'Juno Stems', icon: 'apps/stems.png', platforms: ['mac'],
+    short: 'Splits any song into vocals, drums, bass, guitar, piano and the rest, on the Mac itself.',
+    text: [
+      'Drop in a finished song and Juno Stems separates it into its parts using today’s best open-source separation models, running privately on the Mac with no uploading.',
+      'The stems can be recombined, auditioned, dragged straight into a music app, or turned into MIDI to learn or re-play a part.'
+    ],
+    features: [
+      'BEST and FAST modes, with 2, 4 or 6 stems (vocals, drums, bass, guitar, piano, other)',
+      'A drums mode that splits a drum stem further',
+      'Stem combiner to build backing tracks and practice mixes',
+      'TO MIDI: turns a stem into MIDI notes, with variation sliders to tidy the result',
+      'Drag any stem out to another app',
+      'Original files are only ever read, never changed'
+    ],
+    shots: [{ src: "apps/shots/stems-1.jpg", caption: "Six stems from one song, two picked to be combined", look: "Glossy" }, { src: "apps/shots/stems-2.jpg", caption: "TO MIDI: the vocal line turned into notes, with sliders to tidy it", look: "Glossy" }] },
+  { id: 'lulu', group: 'music', name: 'Juno Audio Editor', icon: 'apps/lulu.png', platforms: ['mac'],
+    short: 'A fast, safe waveform editor for trimming, fading, pitching and finishing audio.',
+    text: [
+      'Juno Audio Editor is built for the everyday jobs: tidy the start and end of a bounce, fade it, bring it up to level, loop a section, or change its pitch by a semitone without a click at the join.',
+      'It never overwrites the original file; every edit is saved as a new file, with full undo along the way.'
+    ],
+    features: [
+      'Opens WAV, AIFF, MP3, FLAC and M4A',
+      'Trim, fade in and out with curves, gain and normalise',
+      'Edges that snap to the beat, to a zero crossing or to the nearest hit',
+      'Seamless pitch up or down on a selection',
+      'Loop playback with a loop-join light and SMOOTH LOOP crossfade',
+      'EQ, and loudness readouts for streaming',
+      'Send a selection straight into a sample library'
+    ],
+    shots: [{ src: "apps/shots/lulu-1.jpg", caption: "A section snapped to the beat, with hit marks and loudness readouts", look: "Glossy" }, { src: "apps/shots/lulu-2.jpg", caption: "The EQ: seven bands, heard live as you drag", look: "Glossy" }] },
+  { id: 'librarian', group: 'music', name: 'Juno Sample Librarian', icon: 'apps/librarian.png', platforms: ['mac'],
+    short: 'Browse, audition and tag thousands of loops and samples, with tempo and key found for you.',
+    text: [
+      'A sample browser for big libraries. Choose the folders worth having, and Juno Sample Librarian lists every loop and one-shot with its tempo, key and length worked out automatically.',
+      'Click to audition, heart the favourites, tag them your own way, and the tags show up inside Juno Music Workstation’s loop browser.'
+    ],
+    features: [
+      'Fast scanning of chosen folders (tens of thousands of files)',
+      'Loop or one-shot, tempo and key detection',
+      'Favourites, tags and combined filters',
+      'Instant audition, in time and in key',
+      'Drag samples straight into a music app',
+      'The sample files themselves are never moved, renamed or changed'
+    ],
+    shots: [{ src: "apps/shots/librarian-1.jpg", caption: "A loop library with tempo and key found automatically, favourites hearted", look: "Rick Burn" }] },
+
+  /* ----- home ----- */
+  { id: 'mail', group: 'home', name: 'Juno Mail', icon: 'apps/mail.png', platforms: ['mac', 'soon:iPad and iPhone · planned'],
+    short: 'A clear, fast mail app for several accounts, with instant push and proper junk control.',
+    text: [
+      'Juno Mail handles several accounts at once (iCloud, Microsoft 365, Outlook.com, Gmail and others) with new mail arriving the moment it lands on the server, just like the phone.',
+      'It is built for long reading sessions: large, comfortable text, a dark page for every email, and lists that open instantly because they are kept on the Mac.'
+    ],
+    features: [
+      'Several accounts, all inboxes together or one at a time',
+      'Instant push for new mail, with a choice of new-mail sounds',
+      'Junk and Not Junk that the mail server learns from, plus a kill list so a sender is never seen again',
+      'Signatures with a picture and text, sized to look right in other mail apps',
+      'Address suggestions learned from the mail you send and receive',
+      'Adjustable reading text size and page brightness, including a dark page',
+      'Sends invoices straight from Juno Accounts'
+    ],
+    shots: [{ src: "apps/shots/mail-1.jpg", caption: "ALL INBOXES with three accounts: each has its own colour, and every email is tagged with the account it came to", look: "Glossy" }, { src: "apps/shots/mail-2.jpg", caption: "A newsletter on the dark page, with page brightness and text size", look: "Glossy" }] },
+  { id: 'accounts', group: 'home', name: 'Juno Accounts', icon: 'apps/accounts.png', platforms: ['mac', 'ipad'],
+    short: 'Invoices, a work log, bank matching and a year-end pack, all kept on your own Mac.',
+    text: [
+      'Juno Accounts replaces an online bookkeeping subscription for a sole trader. Log the work as you go, turn it into a branded invoice in one click, email it, and mark it paid when the money arrives.',
+      'Bank statements are imported and sorted into categories that learn from your own choices, payments are matched to unpaid invoices, and at the year end it makes a pack for the accountant. Everything stays on the Mac.'
+    ],
+    features: [
+      'Clients and a work log (hours × rate or a fixed price)',
+      'CREATE INVOICE: numbered, branded PDF invoices, emailed through Juno Mail',
+      'Mark paid, with money in matched to unpaid invoices',
+      'Bank statement import with categories that learn',
+      'Brings across clients, invoices and payment history from QuickBooks Online',
+      'Year-end pack: profit and loss by category, transactions and invoices',
+      'iPad version that keeps in step with the Mac'
+    ],
+    shots: [{ src: "apps/shots/accounts-1.jpg", caption: "A client’s work log, ready to turn into an invoice", look: "Rick Burn" }, { src: "apps/shots/accounts-2.jpg", caption: "A branded invoice, ready to email through Juno Mail", look: "Rick Burn" }] },
+  { id: 'tagedit', group: 'home', name: 'Juno Tag Edit', icon: 'apps/tagedit.png', platforms: ['mac'],
+    short: 'Tidies the names, albums, artwork and details inside a music collection’s MP3s.',
+    text: [
+      'A spreadsheet-style editor for MP3 tags. Drag in a file or a whole folder, click a song and fix its title, artist, album, numbers and artwork in the side panel.',
+      'Many files can be changed at once, so a whole album can be named and numbered in seconds, and missing details can be looked up online.'
+    ],
+    features: [
+      'Title, artist, album, album artist, track and disc numbers, year, genre, composer and comment',
+      'Edit many files at once, with automatic track numbering',
+      'Cover art: view, add, replace or remove',
+      'FIND ONLINE to fill in missing details',
+      'Preview playback and Show in Finder',
+      'Converts other audio formats to MP3'
+    ],
+    shots: [{ src: "apps/shots/tagedit-1.jpg", caption: "An album’s tags and cover art", look: "Glossy" }, { src: "apps/shots/tagedit-2.jpg", caption: "Eight songs selected: change a field once for all of them", look: "Glossy" }] },
+  { id: 'juno', group: 'home', name: 'Juno Media Player', icon: 'apps/juno.png', platforms: ['mac', 'ipad', 'tv'],
+    short: 'Music, films and TV from the home library on the Mac, on every screen in the house.',
+    text: [
+      'Juno Media Player is the home’s music and film centre. On the Mac it plays the local music library and YouTube Music side by side, with playlists, favourites and a proper player window.',
+      'Juno TV, its Apple TV and iPad companion, plays the music, films and TV series straight from the library stored on the main Mac, so there is one collection and nothing to copy. Up Next, a watchlist and resume-where-you-left-off follow you between screens.'
+    ],
+    features: [
+      'Local music library with albums, artists, playlists and favourites',
+      'YouTube Music alongside, using your own subscription',
+      'Films and TV series with artwork, seasons and Up Next',
+      'Juno TV on Apple TV and iPad, streaming from the main Mac over the home network',
+      'Watchlist and play position shared between Mac, Apple TV and iPad',
+      'Refresh to pick up new films and episodes without restarting'
+    ],
+    runs: '<b>How it runs:</b> the library lives on the main Mac; the Apple TV and iPad play it from there over the home network.',
+    shots: [{ src: "apps/shots/juno-1.jpg", caption: "The music library as album covers", look: "Glossy" }, { src: "apps/shots/juno-2.jpg", caption: "An album page: play, shuffle, edit tags, favourite", look: "Glossy" }] },
+  { id: 'homepanel', group: 'home', name: 'Juno Home Panel', icon: 'apps/homepanel.png', icon2: 'apps/homepanelmax.png', platforms: ['mac'],
+    short: 'The house at a glance: solar and battery, weather, who’s watching what, drives and more.',
+    text: [
+      'A dashboard for a second screen. Juno Home Panel shows the solar panels and battery with a live power flow, the local weather, what is playing on the media server and the state of every drive.',
+      'Juno Home Panel MAX puts every home module together on one full screen: heating, cameras, solar, weather, media and now playing, all at once.'
+    ],
+    features: [
+      'Solar generation, house use, grid and battery with a live flow and graph',
+      'Weather for your town',
+      'Who is watching what on the home media server, and what was recently added',
+      'Every drive with level meters, including ones that are unplugged',
+      'Now playing in Juno Media Player, with transport keys',
+      'MAX edition: heating and cameras on the same screen'
+    ],
+    shots: [] },
+  { id: 'heating', group: 'home', name: 'Juno Heating', icon: 'apps/heating.png', platforms: ['mac', 'ipad'],
+    short: 'A clear control panel for electric storage heaters, with boost, schedules and solar-aware heating.',
+    text: [
+      'Juno Heating replaces the maker’s app for Dimplex Quantum heaters with one clear panel: every room’s temperature, target and mode, with boost and away in a single press.',
+      'It can also watch the solar system and warm the house with power that would otherwise go back to the grid.'
+    ],
+    features: [
+      'Every heater and room at a glance',
+      'Targets, boost, away and modes',
+      'Schedules and energy use',
+      'Solar-aware heating that uses spare solar power',
+      'iPad version for the control panel on the wall or sofa'
+    ],
+    shots: [{ src: "apps/shots/heating-1.jpg", caption: "Every room at a glance: temperature, target, timers, night and boost", look: "Glossy" }] },
+  { id: 'cameras', group: 'home', name: 'Juno Cameras', icon: 'apps/cameras.png', platforms: ['mac', 'ipad', 'tv'],
+    short: 'Continuous live views of the home’s cameras on the Mac, iPad and TV.',
+    text: [
+      'Juno Cameras keeps live feeds from the home’s security cameras on screen all the time, without opening a phone app for each one.',
+      'The Apple TV and iPad versions take their camera list from the Mac, so they are set up once.'
+    ],
+    features: [
+      'Several cameras live at once',
+      'Mac, iPad and Apple TV',
+      'Camera list shared from the Mac, passwords kept in each device’s keychain',
+      'Works with any camera that offers a standard live stream'
+    ],
+    shots: [] },
+  { id: 'catscan', group: 'home', name: 'Juno Cat Scan', icon: 'apps/catscan.png', platforms: ['mac'],
+    short: 'Finds what is filling your disk, and backs up only what the backup drive is missing.',
+    text: [
+      'Juno Cat Scan does two jobs. SPACE draws a map of a whole disk or any folder, every block sized by the space it takes, so the big space-eaters jump out at once. Each block is coloured either by kind (audio, sample libraries, video, pictures, apps and plugins) or by how safe it is to remove, and it says which installed app or plugin a folder belongs to before you touch it.',
+      'COPY fixes the Finder refusing to back up a huge folder because it counts everything: it looks at what is already on the backup and copies only the files that are missing, after showing how much space they need and whether they fit. Nothing on the backup is ever overwritten, changed or deleted.'
+    ],
+    features: [
+      'SPACE: a map of the main disk or any folder, scanned in seconds',
+      'Three views: by folder, the biggest files, or grouped by the app that owns them',
+      'Safety colours: macOS, vital to an app, your files, check first, usually safe',
+      'Click into any block to zoom in; Show in Finder or Move to Bin (always asks, never for macOS or vital files)',
+      'COPY: preview the count, size needed and free space (FITS / NOT ENOUGH ROOM)',
+      'Copies only the missing files, keeping the folder layout, and never overwrites anything'
+    ],
+    shots: [{ src: "apps/shots/catscan-2.jpg", caption: "SPACE: a map of what is filling the disk, coloured by kind", look: "Glossy" }, { src: "apps/shots/catscan-1.jpg", caption: "COPY: only the missing files, with a check that they fit", look: "Glossy" }] }
+];
+
+(function () {
+  function esc(t) { var d = document.createElement('div'); d.textContent = t || ''; return d.innerHTML; }
+  function chips(list) {
+    return list.map(function (p) {
+      if (p.indexOf('soon:') === 0) return '<span class="chip soon">' + esc(p.slice(5)) + '</span>';
+      return '<span class="chip ' + p + '">' + PLAT[p] + '</span>';
+    }).join('');
+  }
+
+  APPS.forEach(function (a) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'app'; b.id = 'app-' + a.id;
+    b.setAttribute('aria-haspopup', 'dialog');
+    b.innerHTML = '<img class="icon" src="' + a.icon + '" alt="">' +
+      '<h3>' + esc(a.name) + '</h3><div class="chips">' + chips(a.platforms) + '</div>' +
+      '<p>' + esc(a.short) + '</p>' + (a.shots.length ? '<span class="peek"><img src="' + a.shots[0].src + '" alt="" loading="lazy"></span>' : '') + '<span class="more">' + (a.shots.length ? 'Screenshots and details' : 'Details') + ' →</span>';
+    b.insertAdjacentHTML('afterbegin', '<span class="spot"></span>');
+    b.classList.add('reveal');
+    b.addEventListener('mousemove', function (e) {
+      var r = b.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      b.style.setProperty('--mx', (x * 100) + '%'); b.style.setProperty('--my', (y * 100) + '%');
+      b.style.setProperty('--ry', ((x - .5) * 8) + 'deg'); b.style.setProperty('--rx', ((.5 - y) * 8) + 'deg');
+    });
+    b.addEventListener('click', function () { open(a); });
+    document.getElementById('grid-' + a.group).appendChild(b);
+  });
+
+  var dlg = document.getElementById('panel');
+  var shot = document.getElementById('d-shot'), thumbs = document.getElementById('d-thumbs');
+
+  var cur = null, curI = 0;
+  var zoom = document.getElementById('zoom'), zimg = document.getElementById('z-img');
+  function zshow() {
+    var s = cur.shots[curI];
+    zimg.src = s.src; zimg.alt = s.caption || cur.name;
+    document.getElementById('z-cap').innerHTML = esc(s.caption || '') + '<small>' + esc(cur.name) + (s.look ? ' \u00b7 ' + esc(s.look) + ' look' : '') + ' \u00b7 ' + (curI + 1) + ' of ' + cur.shots.length + ' \u00b7 click the picture to fit it on screen</small>';
+    var many = cur.shots.length > 1;
+    document.getElementById('z-prev').style.display = many ? '' : 'none';
+    document.getElementById('z-next').style.display = many ? '' : 'none';
+  }
+  function zopen() { if (!cur || !cur.shots.length) return; zshow(); zoom.classList.add('on', 'full'); document.getElementById('z-stage').scrollTo(0, 0); document.getElementById('z-close').focus(); }
+  function zclose() { zoom.classList.remove('on', 'full'); }
+  function zstep(d) { curI = (curI + d + cur.shots.length) % cur.shots.length; show(cur, curI); zshow(); }
+  shot.addEventListener('click', zopen);
+  document.getElementById('z-close').addEventListener('click', zclose);
+  document.getElementById('z-prev').addEventListener('click', function () { zstep(-1); });
+  document.getElementById('z-next').addEventListener('click', function () { zstep(1); });
+  document.getElementById('z-stage').addEventListener('click', function (e) { if (e.target === zimg) zoom.classList.toggle('full'); else zclose(); });
+  dlg.addEventListener('cancel', function (e) { if (zoom.classList.contains('on')) { e.preventDefault(); zclose(); } });
+  document.addEventListener('keydown', function (e) {
+    if (!zoom.classList.contains('on')) return;
+    if (e.key === 'ArrowLeft') zstep(-1); else if (e.key === 'ArrowRight') zstep(1);
+  });
+
+  function show(a, i) {
+    cur = a; curI = i;
+    var s = a.shots[i];
+    shot.innerHTML = '<img src="' + s.src + '" alt="' + esc(s.caption || a.name) + '"><span class="zoomhint"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5M7 4.8v4.4M4.8 7h4.4"/></svg>Click to see full size</span>' +
+      (s.caption ? '<figcaption>' + esc(s.caption) + '</figcaption>' : '');
+    Array.prototype.forEach.call(thumbs.children, function (t, k) { t.setAttribute('aria-current', k === i ? 'true' : 'false'); });
+    var lk = document.getElementById('d-look');
+    if (lk) { lk.hidden = !s.look; lk.innerHTML = s.look ? '<i></i>' + esc(s.look) + ' look' : ''; }
+  }
+
+  function open(a) {
+    dlg.style.setProperty('--tint', a.group === 'home' ? 'var(--green)' : 'var(--volt)');
+    document.getElementById('d-icon').src = a.icon;
+    document.getElementById('d-title').textContent = a.name;
+    document.getElementById('d-chips').innerHTML = chips(a.platforms) + '<span class="chip lookchip" id="d-look" hidden></span>';
+    thumbs.innerHTML = ''; cur = null; zclose();
+    if (a.shots.length) {
+      a.shots.forEach(function (s, i) {
+        var t = document.createElement('button');
+        t.type = 'button'; t.setAttribute('aria-label', s.caption || ('Screenshot ' + (i + 1)));
+        t.innerHTML = '<img src="' + s.src + '" alt="">';
+        t.addEventListener('click', function () { show(a, i); });
+        thumbs.appendChild(t);
+      });
+      thumbs.style.display = a.shots.length > 1 ? '' : 'none';
+      document.getElementById('d-note').style.display = '';
+      show(a, 0);
+    } else {
+      thumbs.style.display = 'none';
+      document.getElementById('d-note').style.display = 'none';
+      shot.innerHTML = '<div class="ph"><div><img src="' + a.icon + '" alt=""><div>Screenshots from the app itself are on their way.</div></div></div>';
+    }
+    var html = a.text.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') +
+      '<h4>What it does</h4><ul>' + a.features.map(function (f) { return '<li>' + esc(f) + '</li>'; }).join('') + '</ul>';
+    if (a.runs) html += '<div class="runs">' + a.runs + '</div>';
+    document.getElementById('d-text').innerHTML = html;
+    dlg.showModal();
+    dlg.querySelector('.d-body').scrollTop = 0;
+  }
+
+  document.getElementById('d-close').addEventListener('click', function () { dlg.close(); });
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Things slide in as they come on screen, a little after each other
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.group h2, .group .intro, .group .eyebrow').forEach(function (el) { el.classList.add('reveal'); });
+  if ('IntersectionObserver' in window && !reduce) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) {
+        var sib = Array.prototype.indexOf.call(e.target.parentNode.children, e.target);
+        e.target.style.transitionDelay = (e.target.classList.contains('app') ? sib * 70 : 0) + 'ms';
+        e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+  } else document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+
+  // The orbit of app icons in the hero
+  var orbit = document.getElementById('orbit'), imgs = [];
+  document.getElementById('count').textContent = APPS.length;
+  APPS.forEach(function (a) { var im = document.createElement('img'); im.src = a.icon; im.alt = ''; orbit.appendChild(im); imgs.push(im); });
+  function spinOrbit(t) {
+    var R = 215, n = imgs.length;
+    imgs.forEach(function (im, i) {
+      var ang = (i / n) * Math.PI * 2 + t * .00018;
+      var x = Math.cos(ang) * R, z = Math.sin(ang), y = z * R * .34;
+      var sc = .62 + (z + 1) * .26;
+      im.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(' + sc + ')';
+      im.style.zIndex = Math.round(z * 100) + 100; im.style.opacity = .45 + (z + 1) * .275;
+    });
+    if (!reduce) requestAnimationFrame(spinOrbit);
+  }
+  requestAnimationFrame(spinOrbit);
+
+  // Light waves behind the hero, as on the main page
+  var canvas = document.getElementById('waves'), ctx = canvas.getContext('2d'), w = 0, h = 0;
+  function size() { var r = canvas.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2); w = r.width; h = r.height; canvas.width = w * dpr; canvas.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+  var bundles = [
+    { y: .78, amp: .10, freq: 1.5, speed: .00022, lines: 16, spread: .05, hue: 205, alpha: .5 },
+    { y: .66, amp: .13, freq: 1.0, speed: -.00015, lines: 12, spread: .06, hue: 150, alpha: .28 },
+    { y: .90, amp: .05, freq: 2.2, speed: .0003, lines: 9, spread: .03, hue: 198, alpha: .4 }
+  ];
+  function draw(t) {
+    ctx.clearRect(0, 0, w, h); ctx.globalCompositeOperation = 'lighter';
+    var step = Math.max(4, w / 220);
+    bundles.forEach(function (b) {
+      for (var i = 0; i < b.lines; i++) {
+        var k = i / (b.lines - 1) - .5; ctx.beginPath();
+        for (var x = 0; x <= w + step; x += step) {
+          var u = x / w, rise = Math.pow(u, 1.5);
+          var y = h * (b.y - .2 * rise) + Math.sin(u * Math.PI * b.freq + t * b.speed * 6 + k * 1.2) * h * b.amp * (.35 + rise) + k * h * b.spread * (.4 + rise * 1.4);
+          if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        var g = ctx.createLinearGradient(0, 0, w, 0), al = b.alpha * (1 - Math.abs(k) * 1.3);
+        g.addColorStop(0, 'hsla(' + b.hue + ',100%,60%,0)'); g.addColorStop(.4, 'hsla(' + b.hue + ',100%,60%,' + al * .35 + ')');
+        g.addColorStop(.85, 'hsla(' + b.hue + ',100%,70%,' + al + ')'); g.addColorStop(1, 'hsla(' + b.hue + ',100%,62%,' + al * .6 + ')');
+        ctx.strokeStyle = g; var mid = i === Math.floor(b.lines / 2);
+        ctx.lineWidth = mid ? 1.6 : .7; ctx.shadowColor = 'hsla(' + b.hue + ',100%,60%,.9)'; ctx.shadowBlur = mid ? 14 : 4; ctx.stroke();
+      }
+    });
+    ctx.globalCompositeOperation = 'source-over';
+  }
+  function loop(t) { draw(t); if (!reduce) requestAnimationFrame(loop); }
+  size(); window.addEventListener('resize', function () { size(); if (reduce) draw(0); }); requestAnimationFrame(loop);
+
+  // Open a panel straight from a link such as apps.html#mail
+  var want = location.hash.slice(1);
+  APPS.forEach(function (a) { if (a.id === want) open(a); });
+})();
+</script>
+</body>
+</html>

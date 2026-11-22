@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rick Burn Consulting</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Rick Burn Consulting: IT, Media and Creative Solutions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&family=Figtree:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap">
+<style>
+/* Layout: one dark night-sky band of light; wordmark hero over animated light waves, then three service panels, about, contact. Single dark look by choice (matches the email signature). */
+:root {
+  --night: #04070d;        /* page ground, near-black with a blue bias */
+  --deep: #0a1220;         /* raised panels */
+  --line: #1b2a40;         /* hairlines */
+  --ink: #f2f6fb;          /* main text */
+  --mist: #9fb0c6;         /* quiet text */
+  --volt: #2f9bff;         /* electric blue */
+  --glow: #7cc6ff;         /* light blue highlight */
+  --display: "Lexend", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --body: "Figtree", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--night);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 10; background: var(--night);
+}
+a { color: var(--glow); text-decoration: none; }
+a:hover { color: var(--ink); }
+:focus-visible { outline: 2px solid var(--glow); outline-offset: 3px; border-radius: 4px; }
+.wrap {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: var(--gutter-l); padding-right: var(--gutter-r);
+}
+
+/* ---------- top bar ---------- */
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--night) 82%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+}
+.bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
+.bar .mini { font-family: var(--display); font-weight: 500; font-size: 17px; color: var(--ink); letter-spacing: .01em; white-space: nowrap; }
+.bar .mini span { color: var(--volt); }
+.bar nav { display: flex; gap: clamp(14px, 3vw, 32px); font-size: 15px; }
+.bar nav a { color: var(--mist); }
+.bar nav a:hover { color: var(--ink); }
+@media (max-width: 560px) { .bar nav a.opt { display: none; } }
+
+/* ---------- hero ---------- */
+.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+.hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hero::after { /* soften the left so the wordmark reads */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(70% 90% at 35% 50%, color-mix(in srgb, var(--night) 70%, transparent), transparent 75%);
+}
+.hero .wrap { position: relative; z-index: 1; padding-block: clamp(72px, 12vw, 150px) clamp(84px, 13vw, 170px); }
+.mark { display: flex; align-items: center; justify-content: center; gap: clamp(24px, 4.5vw, 64px); flex-wrap: wrap; }
+.hero .wrap { max-width: 1320px; }
+.logo { margin: 0; width: clamp(300px, 46vw, 680px); max-width: 100%; flex: none; }
+.logo svg { display: block; width: 100%; height: auto; overflow: visible; }
+.logo text { filter: drop-shadow(0 0 14px rgba(124, 198, 255, .2)); }
+.divider { width: 1px; align-self: stretch; min-height: 120px; background: linear-gradient(var(--line), var(--volt), var(--line)); }
+.tag { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.tagline { font-family: var(--body); font-style: italic; font-weight: 400; font-size: clamp(20px, 2.6vw, 30px); color: var(--ink); margin: 0; }
+.tagline i { font-style: normal; color: var(--volt); padding: 0 .45em; }
+.lede { margin: 0; max-width: 36ch; color: var(--mist); font-size: 17px; }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 11px 20px; border-radius: 999px;
+  font: 500 15px/1 var(--body); border: 1px solid var(--volt); color: var(--ink); background: transparent; cursor: pointer;
+}
+.btn.solid { background: var(--volt); color: #021022; box-shadow: 0 0 24px rgba(47, 155, 255, .45); }
+.btn:hover { color: var(--ink); background: color-mix(in srgb, var(--volt) 25%, transparent); }
+.btn.solid:hover { background: var(--glow); color: #021022; }
+@media (max-width: 760px) {
+  .divider { width: 100%; min-height: 0; height: 1px; background: linear-gradient(90deg, var(--volt), var(--line) 70%, transparent); }
+}
+
+/* ---------- sections ---------- */
+section.block .wrap { padding-block: clamp(64px, 9vw, 110px); }
+.eyebrow { font: 500 13px/1 var(--display); letter-spacing: .32em; text-transform: uppercase; color: var(--volt); margin: 0 0 14px; }
+h2 { font-family: var(--display); font-weight: 400; font-size: clamp(30px, 4.4vw, 46px); line-height: 1.12; letter-spacing: -.015em; margin: 0 0 18px; text-wrap: balance; }
+.intro { color: var(--mist); max-width: 60ch; margin: 0; }
+
+.it-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin-top: 44px; }
+@media (max-width: 1000px) { .it-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .it-grid { grid-template-columns: 1fr; } }
+.it-grid .svc h3 { font-size: 19px; }
+.it-grid .svc p { font-size: 15.5px; }
+
+.doors { border-top: 1px solid var(--line); }
+.doors .wrap { padding-block: clamp(56px, 8vw, 96px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+@media (max-width: 820px) { .doors .wrap { grid-template-columns: 1fr; } }
+.door { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; padding: clamp(28px, 4vw, 44px); border-radius: 18px; border: 1px solid var(--line); color: var(--ink); min-width: 0;
+  background: radial-gradient(80% 120% at 100% 0%, color-mix(in srgb, var(--tint) 22%, transparent), transparent 70%), linear-gradient(160deg, var(--deep), var(--night) 85%);
+  transition: transform .18s ease, border-color .18s ease; }
+.door:hover { color: var(--ink); transform: translateY(-3px); border-color: color-mix(in srgb, var(--tint) 55%, var(--line)); }
+.door .eyebrow { color: var(--tint); }
+.door h2 { font-size: clamp(26px, 3.2vw, 36px); margin-bottom: 8px; }
+.door p:not(.eyebrow) { color: var(--mist); margin: 0 0 18px; }
+.door .btn { margin-top: auto; }
+.apps-door { --tint: #2f9bff; }
+.media-door { --tint: #36e08a; }
+.media-door .btn { border-color: #36e08a; }
+.svc {
+  position: relative; padding: 30px 28px 32px; border-radius: 14px; overflow: hidden;
+  background: linear-gradient(160deg, var(--deep), var(--night) 80%);
+  border: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: 14px; min-width: 0;
+}
+.svc::before { /* a streak of light along the top edge */
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--volt) 30%, var(--glow) 55%, transparent);
+}
+.svc svg { width: 40px; height: 40px; color: var(--glow); filter: drop-shadow(0 0 8px rgba(47,155,255,.6)); }
+.svc h3 { font-family: var(--display); font-weight: 500; font-size: 24px; margin: 0; letter-spacing: -.005em; }
+.svc p { margin: 0; color: var(--mist); }
+.svc ul { list-style: none; padding: 0; margin: 4px 0 0; display: grid; gap: 8px; font-size: 15.5px; }
+.svc li { display: flex; gap: 10px; align-items: baseline; }
+.svc li::before { content: ""; flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--volt); box-shadow: 0 0 8px var(--volt); transform: translateY(-2px); }
+
+.about { border-top: 1px solid var(--line); }
+.about .grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(28px, 6vw, 80px); align-items: start; }
+@media (max-width: 820px) { .about .grid { grid-template-columns: 1fr; } }
+.about p { margin: 0 0 16px; max-width: 62ch; color: #c9d5e4; }
+.pillars { display: grid; gap: 0; border-top: 1px solid var(--line); margin-top: 6px; }
+.pillars div { display: grid; grid-template-columns: 8.5em minmax(0,1fr); gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.pillars dt { font: 500 13px/1.5 var(--display); letter-spacing: .2em; text-transform: uppercase; color: var(--volt); padding-top: 2px; }
+.pillars dd { margin: 0; color: var(--mist); }
+@media (max-width: 460px) { .pillars div { grid-template-columns: 1fr; gap: 4px; } }
+
+/* ---------- contact ---------- */
+.contact { position: relative; overflow: hidden; border-top: 1px solid var(--line); }
+.contact .glowline { position: absolute; left: -10%; right: -10%; bottom: -40px; height: 220px; pointer-events: none;
+  background: radial-gradient(60% 60% at 70% 100%, rgba(47,155,255,.28), transparent 70%); }
+.contact .wrap { position: relative; }
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 36px; max-width: 820px; }
+@media (max-width: 700px) { .cards { grid-template-columns: 1fr; } }
+.card {
+  display: flex; align-items: center; gap: 16px; padding: 18px 20px; border-radius: 12px;
+  background: color-mix(in srgb, var(--deep) 85%, transparent); border: 1px solid var(--line); min-width: 0;
+}
+.card svg { flex: none; width: 26px; height: 26px; color: var(--volt); }
+.card .k { font: 500 12px/1 var(--display); letter-spacing: .24em; text-transform: uppercase; color: var(--mist); margin-bottom: 6px; }
+.card .v { font-size: 17px; color: var(--ink); overflow-wrap: anywhere; user-select: all; }
+.card .txt { flex: 1; min-width: 0; }
+.copy { flex: none; font: 500 13px/1 var(--body); padding: 8px 12px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--mist); cursor: pointer; }
+.copy:hover { border-color: var(--volt); color: var(--ink); }
+
+footer { border-top: 1px solid var(--line); }
+footer .wrap { padding-block: 26px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; color: var(--mist); font-size: 14px; }
+footer em { color: var(--ink); }
+
+/* ---------- flash ---------- */
+.shine { background: linear-gradient(100deg, var(--volt) 0%, var(--glow) 30%, #ffffff 45%, var(--glow) 60%, var(--volt) 100%); background-size: 250% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent; animation: shine 6s linear infinite; }
+@keyframes shine { from { background-position: 100% 0; } to { background-position: -150% 0; } }
+.svc, .door, .tool { isolation: isolate; transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+.svc:hover, .tool:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--volt) 55%, var(--line)); box-shadow: 0 16px 40px rgba(0,0,0,.45), 0 0 30px rgba(47,155,255,.15); }
+.spot { position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .25s;
+  background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 0%), rgba(47,155,255,.2), transparent 60%); }
+.svc:hover .spot, .door:hover .spot, .tool:hover .spot { opacity: 1; }
+.svc svg { transition: transform .3s cubic-bezier(.2,.8,.3,1.4); }
+.svc:hover svg { transform: scale(1.15) rotate(-4deg); }
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+
+.remote { position: relative; overflow: hidden; border-top: 1px solid var(--line);
+  background: radial-gradient(50% 70% at 90% 10%, rgba(47,155,255,.16), transparent 70%), radial-gradient(40% 60% at 0% 100%, rgba(124,198,255,.08), transparent 70%), var(--night); }
+.remote .beam { position: absolute; left: -20%; right: -20%; top: 46%; height: 2px; pointer-events: none; opacity: .7;
+  background: linear-gradient(90deg, transparent, var(--volt) 40%, #fff 50%, var(--volt) 60%, transparent); background-size: 50% 100%; background-repeat: no-repeat;
+  filter: drop-shadow(0 0 8px var(--volt)); animation: beam 5s linear infinite; }
+@keyframes beam { from { background-position: -60% 0; } to { background-position: 160% 0; } }
+.remote .wrap { position: relative; }
+.steps { list-style: none; padding: 0; margin: 40px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; counter-reset: s; }
+@media (max-width: 820px) { .steps { grid-template-columns: 1fr; } }
+.steps li { display: flex; gap: 16px; align-items: flex-start; padding: 20px; border-radius: 14px; background: color-mix(in srgb, var(--deep) 70%, transparent); border: 1px solid var(--line); backdrop-filter: blur(6px); min-width: 0; }
+.steps b { flex: none; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font: 500 20px/1 var(--display); color: #021022;
+  background: radial-gradient(circle at 35% 30%, #fff, var(--glow) 35%, var(--volt)); box-shadow: 0 0 24px rgba(47,155,255,.7); }
+.steps h3 { font-family: var(--display); font-weight: 500; font-size: 19px; margin: 2px 0 4px; }
+.steps p { margin: 0; color: var(--mist); font-size: 15.5px; }
+.tools { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 28px; }
+@media (max-width: 1000px) { .tools { grid-template-columns: 1fr; } }
+.tool { position: relative; overflow: hidden; padding: 28px 26px; border-radius: 16px; border: 1px solid var(--line); display: flex; flex-direction: column; gap: 12px; min-width: 0;
+  background: linear-gradient(160deg, var(--deep), var(--night) 85%); }
+.tool svg { width: 40px; height: 40px; color: var(--glow); filter: drop-shadow(0 0 8px rgba(47,155,255,.6)); }
+.tool h3 { font-family: var(--display); font-weight: 500; font-size: 21px; margin: 0; }
+.tool p { margin: 0; color: var(--mist); font-size: 15.5px; }
+.tool .badge { position: absolute; top: 18px; right: 18px; font: 500 11px/1 var(--display); letter-spacing: .14em; text-transform: uppercase; padding: 6px 9px; border-radius: 999px;
+  color: #b6ffd9; border: 1px solid rgba(54,224,138,.5); background: rgba(54,224,138,.08); }
+.tool.own { border-color: rgba(242,184,75,.45); background: radial-gradient(80% 90% at 100% 0%, rgba(242,184,75,.14), transparent 65%), linear-gradient(160deg, var(--deep), var(--night) 85%); box-shadow: 0 0 40px rgba(242,184,75,.08); }
+.tool.own svg { color: #f2b84b; filter: drop-shadow(0 0 10px rgba(242,184,75,.7)); }
+.tool.own .badge { color: #ffe2a6; border-color: rgba(242,184,75,.6); background: rgba(242,184,75,.1); animation: blink 2.4s ease-in-out infinite; }
+@keyframes blink { 50% { box-shadow: 0 0 14px rgba(242,184,75,.6); } }
+.tagline, .logo { animation: rise 1s cubic-bezier(.2,.8,.2,1) both; }
+.tag .lede { animation: rise 1s .15s cubic-bezier(.2,.8,.2,1) both; }
+.tag .cta { animation: rise 1s .3s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } }
+.btn.solid { position: relative; overflow: hidden; }
+.btn.solid::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%); transform: translateX(-120%); animation: sweep 3.5s ease-in-out infinite; }
+@keyframes sweep { 60%, 100% { transform: translateX(120%); } }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } .shine, .remote .beam, .btn.solid::after, .tagline, .logo, .tag .lede, .tag .cta, .tool.own .badge { animation: none; } }
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="mini" href="#top">Rick Burn <span>Consulting</span></a>
+    <nav aria-label="Sections">
+      <a href="#services">IT services</a>
+      <a href="#remote" class="opt">Remote support</a>
+      <a href="apps.html">Apps</a>
+      <a href="multimedia.html">Media &amp; Music</a>
+      <a href="#about" class="opt">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-label="Rick Burn Consulting">
+    <canvas id="waves" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div class="mark">
+        <h1 class="logo">
+          <!-- Logo drawn to match the email signature: a tilted orbit to the left of the name,
+               a thick blue crescent over the top with a thin white line inside it,
+               and a white swoosh underneath that tapers into the R. -->
+          <svg viewBox="40 20 1130 350" role="img" aria-label="Rick Burn Consulting">
+            <defs>
+              <linearGradient id="blueArc" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#1f86f0"/>
+                <stop offset=".45" stop-color="#3aa6ff"/>
+                <stop offset="1" stop-color="#1f86f0"/>
+              </linearGradient>
+              <linearGradient id="innerLine" x1="0" y1="1" x2="1" y2="0">
+                <stop offset="0" stop-color="#ffffff" stop-opacity=".95"/>
+                <stop offset=".7" stop-color="#d9ecff" stop-opacity=".7"/>
+                <stop offset="1" stop-color="#d9ecff" stop-opacity="0"/>
+              </linearGradient>
+              <linearGradient id="whiteSweep" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#ffffff"/>
+                <stop offset=".7" stop-color="#f2f8ff"/>
+                <stop offset="1" stop-color="#ffffff" stop-opacity=".85"/>
+              </linearGradient>
+              <radialGradient id="glint">
+                <stop offset="0" stop-color="#ffffff" stop-opacity=".95"/>
+                <stop offset=".25" stop-color="#7cc6ff" stop-opacity=".7"/>
+                <stop offset="1" stop-color="#2f9bff" stop-opacity="0"/>
+              </radialGradient>
+              <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="5" result="b"/>
+                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+            <!-- thick blue crescent: tip top-right, over the top, down the left, tapering out lower-left -->
+            <path d="M560 74 C 470 20, 290 26, 186 104 C 112 160, 88 236, 122 288
+                     C 128 222, 190 150, 296 108 C 388 70, 490 60, 560 74 Z"
+                  fill="url(#blueArc)" filter="url(#soft)"/>
+            <!-- thin white line running inside the crescent -->
+            <path d="M168 262 C 196 192, 268 134, 352 104 C 400 88, 440 82, 470 82"
+                  fill="none" stroke="url(#innerLine)" stroke-width="4" stroke-linecap="round"/>
+            <!-- white swoosh underneath: thick at the left, tapering towards the R -->
+            <path d="M44 262 C 48 322, 176 352, 310 306 C 356 290, 394 266, 420 242
+                     C 372 270, 300 298, 214 306 C 136 312, 70 300, 44 262 Z"
+                  fill="url(#whiteSweep)" filter="url(#soft)"/>
+            <!-- spark of light on the blue arc -->
+            <circle cx="248" cy="88" r="34" fill="url(#glint)"/>
+            <text x="402" y="270" textLength="752" lengthAdjust="spacingAndGlyphs"
+                  style="font-family: var(--display); font-weight: 400; font-size: 172px; fill: var(--ink); letter-spacing: -2px">Rick Burn</text>
+            <text x="412" y="352" textLength="738" lengthAdjust="spacing"
+                  style="font-family: var(--display); font-weight: 400; font-size: 60px; fill: #3aa6ff; letter-spacing: 30px">CONSULTING</text>
+          </svg>
+        </h1>
+        <div class="divider" aria-hidden="true"></div>
+        <div class="tag">
+          <p class="tagline">IT<i>•</i>Media<i>•</i>Creative Solutions</p>
+          <p class="lede">IT support and consultancy for homes and small businesses: computers, networks, email and backups that work properly and stay that way.</p>
+          <div class="cta">
+            <a class="btn solid" href="#contact">Get in touch</a>
+            <a class="btn" href="#services">IT services</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="services" aria-labelledby="svc-h">
+    <div class="wrap">
+      <p class="eyebrow">IT services</p>
+      <h2 id="svc-h">IT support that <span class="shine">keeps you working</span></h2>
+      <p class="intro">Help with the computers, networks and accounts you rely on every day, set up properly, explained in plain language and looked after afterwards.</p>
+
+      <div class="it-grid">
+        <article class="svc">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="5" y="7" width="30" height="20" rx="2.5"/><path d="M14 33h12M20 27v6"/></svg>
+          <h3>Support and troubleshooting</h3>
+          <p>Slow, broken or misbehaving computers and devices diagnosed and fixed, on site or remotely.</p>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="7" y="9" width="26" height="16" rx="2"/><path d="M4 31h32"/><path d="M15 17l3 3 6-6"/></svg>
+          <h3>Mac and PC setup</h3>
+          <p>New machines set up and ready to use, upgrades, and everything moved across from the old one.</p>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 17a17 17 0 0 1 24 0M12 21.5a11 11 0 0 1 16 0M16 26a5 5 0 0 1 8 0"/><circle cx="20" cy="30.5" r="1.6"/></svg>
+          <h3>Networks and Wi-Fi</h3>
+          <p>Reliable Wi-Fi in every room, routers and switches configured, printers and shared drives that connect first time.</p>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="5" y="10" width="30" height="20" rx="2.5"/><path d="M5.5 11l14.5 11 14.5-11"/></svg>
+          <h3>Email and accounts</h3>
+          <p>Email on your own domain, Microsoft 365 and Google accounts, and moving mail and files between them.</p>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><ellipse cx="20" cy="10" rx="12" ry="4"/><path d="M8 10v20c0 2.2 5.4 4 12 4s12-1.8 12-4V10M8 20c0 2.2 5.4 4 12 4s12-1.8 12-4"/></svg>
+          <h3>Backups and data</h3>
+          <p>Automatic backups you can trust, data moved safely between machines and drives, and help when files go missing.</p>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 5l12 5v9c0 8-5.4 13.5-12 16-6.6-2.5-12-8-12-16v-9z"/><path d="M15 20l3.5 3.5L26 16"/></svg>
+          <h3>Security checks</h3>
+          <p>Updates, passwords, two-step sign-in and safe settings reviewed, so accounts and devices stay protected.</p>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M14 12l-8 8 8 8M26 12l8 8-8 8M22 9l-4 22"/></svg>
+          <h3>Custom software and automation</h3>
+          <p>Small apps and scripts built for the job, to take the repetitive work out of your day.</p>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="20" cy="20" r="14"/><path d="M20 12v8l5 3"/></svg>
+          <h3>Advice and planning</h3>
+          <p>Straight answers on what to buy, what to keep and what to change before you spend money.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block remote" id="remote" aria-labelledby="remote-h">
+    <div class="beam" aria-hidden="true"></div>
+    <div class="wrap">
+      <p class="eyebrow">Remote support</p>
+      <h2 id="remote-h">Fixed from here, <span class="shine">wherever you are</span></h2>
+      <p class="intro">Most problems can be sorted without a visit. With your permission, we connect to your computer over the internet, see what you see and put it right while you watch, on Windows or Mac.</p>
+
+      <ol class="steps">
+        <li><b>1</b><div><h3>Call or email</h3><p>Describe the problem and agree a time.</p></div></li>
+        <li><b>2</b><div><h3>Connect</h3><p>Open the support app and read out its one-time code. Nothing is left running afterwards.</p></div></li>
+        <li><b>3</b><div><h3>Sorted</h3><p>Watch it being fixed, ask questions, and end the session whenever you like.</p></div></li>
+      </ol>
+
+      <div class="tools">
+        <article class="tool">
+          <span class="badge">Supported</span>
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="8" width="20" height="14" rx="2"/><rect x="16" y="18" width="20" height="14" rx="2"/><path d="M20 15h2l-2 3"/></svg>
+          <h3>TeamViewer</h3>
+          <p>The well-known remote support tool. Run the QuickSupport app, read out your ID and password, and the session starts.</p>
+        </article>
+        <article class="tool">
+          <span class="badge">Supported</span>
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="20" cy="20" r="14"/><circle cx="20" cy="20" r="5"/><path d="M20 6v9M8 27l8-4.5M32 27l-8-4.5"/></svg>
+          <h3>Chrome Remote Desktop</h3>
+          <p>Google's free remote help, through the Chrome browser. Share a one-time access code and you're connected.</p>
+        </article>
+        <article class="tool own">
+          <span class="badge">Coming soon</span>
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 5l12 5v9c0 8-5.4 13.5-12 16-6.6-2.5-12-8-12-16v-9z"/><path d="M14 21l4 4 8-9"/></svg>
+          <h3>Juno Remote</h3>
+          <p>Our own secure connector, running through our own server rather than a third party. Being built now and available here soon: download it from this site, run it without installing, and read out the code. Office versions for regular clients, too.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="doors" aria-label="More from Rick Burn Consulting">
+    <div class="wrap">
+      <a class="door apps-door" href="apps.html">
+        <p class="eyebrow">App development</p>
+        <h2>Apps built here</h2>
+        <p>Full-featured apps for the Mac, with iPad and Apple TV companions: a music workstation, stem splitter, audio editor and sample librarian, plus mail, accounts, media and home apps. Windows versions are in progress.</p>
+        <span class="btn solid">See the apps</span>
+      </a>
+      <a class="door media-door" href="multimedia.html">
+        <p class="eyebrow">Media and music</p>
+        <h2>Home media, soundtracks and music</h2>
+        <p>Media servers, films, music and photos on every screen in the house, and soundtracks and music written and produced in our own studio.</p>
+        <span class="btn">Media and music</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="block about" id="about" aria-labelledby="about-h">
+    <div class="wrap grid">
+      <div>
+        <p class="eyebrow">About</p>
+        <h2 id="about-h">Someone who knows the systems you rely on</h2>
+      </div>
+      <div>
+        <p>The main business at Rick Burn Consulting is IT: setting up, repairing and looking after the computers, networks and accounts that homes and small businesses depend on. Years of running studio and media systems add two more strands: apps written for the Mac, and media and creative work.</p>
+        <p>Work is explained in plain language, priced before it starts and finished properly.</p>
+        <dl class="pillars">
+          <div><dt>Plain talk</dt><dd>No jargon, just what it does and what it costs.</dd></div>
+          <div><dt>One contact</dt><dd>The same person from the first call to the finished job.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="block contact" id="contact" aria-labelledby="contact-h">
+    <div class="glowline" aria-hidden="true"></div>
+    <div class="wrap">
+      <p class="eyebrow">Contact</p>
+      <h2 id="contact-h">Tell us what you need</h2>
+      <p class="intro">Send a short note about the job and we'll get back to you.</p>
+      <div class="cards">
+        <div class="card">
+          <svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="6" width="20" height="14" rx="2"/><path d="M3.5 7l9.5 7 9.5-7"/></svg>
+          <div class="txt"><div class="k">Email</div><div class="v" id="email">rick@rickburn.net</div></div>
+          <button class="copy" type="button" data-copy="email" id="copy-email">Copy</button>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="13" cy="13" r="10"/><path d="M3 13h20M13 3c3 3 4 6.5 4 10s-1 7-4 10M13 3c-3 3-4 6.5-4 10s1 7 4 10"/></svg>
+          <div class="txt"><div class="k">Web</div><div class="v" id="web">www.rickburn.net</div></div>
+          <button class="copy" type="button" data-copy="web" id="copy-web">Copy</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr">2026</span> <em>Rick Burn Consulting</em></span>
+    <span>IT • Media • Creative Solutions</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Copy buttons
+  document.querySelectorAll('.copy').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.dataset.copy);
+      var text = el.textContent.trim();
+      var done = function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 1600); };
+      var fallback = function () {
+        var r = document.createRange(); r.selectNodeContents(el);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        b.textContent = 'Selected';
+        setTimeout(function () { b.textContent = 'Copy'; }, 1600);
+      };
+      try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
+    });
+  });
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Glow that follows the mouse on cards, and things sliding in as they come on screen
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.svc, .door, .tool').forEach(function (c) {
+    c.insertAdjacentHTML('afterbegin', '<span class="spot" aria-hidden="true"></span>');
+    c.addEventListener('mousemove', function (e) { var r = c.getBoundingClientRect();
+      c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px'); });
+  });
+  var items = document.querySelectorAll('section.block h2, section.block .intro, .svc, .steps li, .tool, .door, .pillars');
+  if ('IntersectionObserver' in window && !still) {
+    items.forEach(function (el) { el.classList.add('reveal'); });
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) {
+      var i = Array.prototype.indexOf.call(e.target.parentNode.children, e.target);
+      if (/svc|tool|door/.test(e.target.className) || e.target.tagName === 'LI') e.target.style.transitionDelay = (i * 70) + 'ms';
+      e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: .12 });
+    items.forEach(function (el) { io.observe(el); });
+  }
+
+  // Light waves in the hero: bundles of thin glowing lines, like the signature's streaks
+  var canvas = document.getElementById('waves');
+  var ctx = canvas.getContext('2d');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var w = 0, h = 0, dpr = 1;
+  function size() {
+    var r = canvas.getBoundingClientRect();
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = r.width; h = r.height;
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  var bundles = [
+    { y: .72, amp: .10, freq: 1.6, speed: .00022, lines: 18, spread: .045, hue: 205, alpha: .55 },
+    { y: .62, amp: .14, freq: 1.1, speed: -.00016, lines: 14, spread: .06, hue: 212, alpha: .35 },
+    { y: .84, amp: .06, freq: 2.3, speed: .0003, lines: 10, spread: .03, hue: 198, alpha: .45 }
+  ];
+  function draw(t) {
+    ctx.clearRect(0, 0, w, h);
+    ctx.globalCompositeOperation = 'lighter';
+    var step = Math.max(4, w / 220);
+    bundles.forEach(function (b) {
+      for (var i = 0; i < b.lines; i++) {
+        var k = i / (b.lines - 1) - .5;
+        ctx.beginPath();
+        for (var x = 0; x <= w + step; x += step) {
+          var u = x / w;
+          var rise = Math.pow(u, 1.6); // waves grow toward the right, as in the signature
+          var y = h * (b.y - .18 * rise)
+            + Math.sin(u * Math.PI * b.freq + t * b.speed * 6 + k * 1.2) * h * b.amp * (.35 + rise)
+            + k * h * b.spread * (.4 + rise * 1.4);
+          if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        var g = ctx.createLinearGradient(0, 0, w, 0);
+        var a = b.alpha * (1 - Math.abs(k) * 1.3);
+        g.addColorStop(0, 'hsla(' + b.hue + ',100%,60%,0)');
+        g.addColorStop(.35, 'hsla(' + b.hue + ',100%,60%,' + (a * .35) + ')');
+        g.addColorStop(.8, 'hsla(' + (b.hue - 5) + ',100%,70%,' + a + ')');
+        g.addColorStop(1, 'hsla(' + b.hue + ',100%,62%,' + (a * .7) + ')');
+        ctx.strokeStyle = g;
+        ctx.lineWidth = i === Math.floor(b.lines / 2) ? 1.6 : .7;
+        ctx.shadowColor = 'hsla(' + b.hue + ',100%,60%,.9)';
+        ctx.shadowBlur = i === Math.floor(b.lines / 2) ? 14 : 4;
+        ctx.stroke();
+      }
+    });
+    // a few sparks of light on the right
+    ctx.shadowBlur = 0;
+    for (var s = 0; s < 40; s++) {
+      var sx = w * (.55 + ((s * 0.6180339) % 1) * .45);
+      var sy = h * (.25 + ((s * 0.4142135) % 1) * .6);
+      var tw = .35 + .35 * Math.sin(t * .002 + s);
+      ctx.fillStyle = 'rgba(124,198,255,' + (tw * .5) + ')';
+      ctx.fillRect(sx, sy, 1.4, 1.4);
+    }
+    ctx.globalCompositeOperation = 'source-over';
+  }
+  function loop(t) { draw(t); if (!reduce) requestAnimationFrame(loop); }
+  size();
+  window.addEventListener('resize', function () { size(); if (reduce) draw(0); });
+  requestAnimationFrame(loop);
+})();
+</script>
