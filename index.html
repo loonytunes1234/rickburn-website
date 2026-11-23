@@ -256,6 +256,8 @@ html.calm *, html.calm *::before, html.calm *::after { animation-play-state: pau
 .smartscreen { margin-top: 20px; display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; border-radius: 12px; background: rgba(47,155,255,.07); border: 1px solid rgba(47,155,255,.25); color: #c9d5e4; font-size: 15px; }
 .smartscreen svg { flex: none; width: 22px; height: 22px; color: var(--glow); margin-top: 1px; }
 .smartscreen b { color: var(--ink); }
+.scam { margin: 16px 0 0; padding: 12px 14px; border-radius: 10px; border: 1px solid rgba(242,184,75,.4); background: rgba(242,184,75,.07); color: #e9dcc2; font-size: 15px; }
+.scam b { color: #ffe2a6; }
 .source { margin: 14px 0 0; font-size: 13.5px; color: var(--mist); }
 
 /* ---------- phone menu ---------- */
@@ -433,7 +435,7 @@ html.calm *, html.calm *::before, html.calm *::after { animation-play-state: pau
           <p>Google's free remote help, through the Chrome browser. Share a one-time access code and you're connected.</p>
         </article>
         <article class="tool own">
-          <span class="badge">Coming soon</span>
+          <span class="badge">Available now</span>
           <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 5l12 5v9c0 8-5.4 13.5-12 16-6.6-2.5-12-8-12-16v-9z"/><path d="M14 21l4 4 8-9"/></svg>
           <h3>Juno Remote</h3>
           <p>Our own secure connector, running through our own server rather than a third party. Run it without installing and read out the code; existing clients get permanent access set up by us. <a href="#download">Download below</a>.</p>
@@ -441,16 +443,16 @@ html.calm *, html.calm *::before, html.calm *::after { animation-play-state: pau
       </div>
 
       <div class="get" id="download">
-        <h3>Juno Remote <span class="soon">Coming soon</span></h3>
-        <p>Our own remote support connector for Windows is nearly ready. Until then we use TeamViewer or Chrome Remote Desktop, so just <a href="#contact">call or email us</a> and we’ll get you connected.</p>
+        <h3>Download Juno Remote</h3>
+        <p>Our own remote support connector for Windows. Download it for a one-off session; existing clients get permanent access set up by us.</p>
         <div class="dl">
-          <div class="paused">
+          <a href="https://github.com/loonytunes1234/remote-support/releases/download/rickburn-1.5.3/RickBurnRemoteSupport.exe" download>
             <span class="kind">Instant support · no install</span>
             <strong>Rick Burn Remote Support</strong>
             <span class="d">For a one-off session. Run it, and it shows an ID and a one-time password: read those out to us and we connect. Nothing is installed, and nothing is left running afterwards.</span>
-            <span class="btn2 off">Coming soon</span>
-            <small>Download available here soon.</small>
-          </div>
+            <span class="btn2"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v9M4 7l4 4 4-4M3 14h10"/></svg>Download for Windows</span>
+            <small>RickBurnRemoteSupport.exe · about 25 MB</small>
+          </a>
           <div class="regular">
             <span class="kind">Full install · existing clients only</span>
             <strong>Rick Burn Remote Access</strong>
@@ -458,8 +460,9 @@ html.calm *, html.calm *::before, html.calm *::after { animation-play-state: pau
             <a class="btn3" href="#contact">Ask about permanent access</a>
           </div>
         </div>
-        <div class="smartscreen" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3l8 3.5v6c0 4.6-3.4 8-8 9.5-4.6-1.5-8-4.9-8-9.5v-6z"/><path d="M12 8v5M12 16h.01"/></svg>
+        <div class="smartscreen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3l8 3.5v6c0 4.6-3.4 8-8 9.5-4.6-1.5-8-4.9-8-9.5v-6z"/><path d="M12 8v5M12 16h.01"/></svg>
           <div>If Windows shows <b>“Windows protected your PC”</b>, click <b>More info</b>, then <b>Run anyway</b>. That message appears for new apps that aren't yet widely downloaded; it is safe to continue. Mac versions are coming soon.</div></div>
+        <p class="scam"><b>Only give your ID and password to Rick Burn Consulting, on a call you’ve arranged.</b> We will never call you out of the blue asking to connect.</p>
         <p class="source">Built on RustDesk (open source). Source code: <a href="https://github.com/loonytunes1234/remote-support">github.com/loonytunes1234/remote-support</a></p>
       </div>
     </div>
