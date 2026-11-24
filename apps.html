@@ -73,6 +73,8 @@ h1 span, .shine { background: linear-gradient(100deg, var(--volt) 0%, var(--glow
 .status .led { animation: pulse 2.2s ease-in-out infinite; flex: none; width: 12px; height: 12px; margin-top: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green), 0 0 22px rgba(54,224,138,.6); }
 .status strong { display: block; font-family: var(--display); font-weight: 500; font-size: 18px; color: var(--ink); margin-bottom: 4px; }
 .status p { margin: 0; color: var(--mist); }
+.placeholder-note { margin: 16px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; color: #c9d5e4; font-size: 15.5px; }
+.placeholder-note span { font: 600 11.5px/1 var(--display); letter-spacing: .16em; text-transform: uppercase; padding: 6px 10px; border-radius: 999px; color: #021022; background: var(--glow); }
 .plat-note { margin-top: 18px; color: var(--mist); font-size: 15.5px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
 
 .credit { position: relative; overflow: hidden; border-bottom: 1px solid var(--line);
@@ -269,6 +271,7 @@ html.calm *, html.calm *::before, html.calm *::after { animation-play-state: pau
           <p>Every app on this page is complete and in daily use in our own home and studio. They need more extensive testing on other people's machines before they are released to the public.</p>
         </div>
       </div>
+      <p class="placeholder-note"><span>Please note</span> The app names shown here are placeholders while final names are chosen.</p>
       <div class="plat-note"><span>Runs on:</span>
         <span class="chip mac">Mac</span><span class="chip ipad">iPad</span><span class="chip tv">Apple TV</span>
       </div>
@@ -369,7 +372,7 @@ html.calm *, html.calm *::before, html.calm *::after { animation-play-state: pau
 var PLAT = { mac: 'Mac', ipad: 'iPad', tv: 'Apple TV', iphone: 'iPhone' };
 var APPS = [
   /* ----- music and media ----- */
-  { id: 'workstation', group: 'music', name: 'RBC Music Workstation', icon: 'apps/workstation.png', platforms: ['mac'],
+  { id: 'workstation', group: 'music', name: 'Music Workstation', icon: 'apps/workstation.png', platforms: ['mac'],
     short: 'A complete pattern-based studio: MIDI, instruments, audio loops, mixer and finished renders.',
     text: [
       'A full music workstation built around looping patterns rather than one long timeline. Each track can loop at its own length, so a 3-beat figure can run against a 4-bar groove, and patterns are chained into a song when the ideas are ready.',
@@ -387,10 +390,10 @@ var APPS = [
       'Renders to WAV with stems, loudness measurement and a ready-for-streaming copy'
     ],
     shots: [{ src: "apps/shots/workstation-1.jpg", caption: "The Chorus pattern playing: eight tracks, each looping at its own length, with the mixer below", look: "Hardware" }, { src: "apps/shots/workstation-3c.jpg", caption: "The clip editor: beat-snapped edges, hit marks, pitch and smooth loops", look: "Hardware" }, { src: "apps/shots/workstation-2.jpg", caption: "The FORGE page: audio loops placed on bars, stretched to the tempo and key", look: "Hardware" }] },
-  { id: 'stems', group: 'music', name: 'RBC Stems', icon: 'apps/stems.png', platforms: ['mac'],
+  { id: 'stems', group: 'music', name: 'Stems', icon: 'apps/stems.png', platforms: ['mac'],
     short: 'Splits any song into vocals, drums, bass, guitar, piano and the rest, on the Mac itself.',
     text: [
-      'Drop in a finished song and RBC Stems separates it into its parts using today’s best open-source separation models, running privately on the Mac with no uploading.',
+      'Drop in a finished song and the app separates it into its parts using today’s best open-source separation models, running privately on the Mac with no uploading.',
       'The stems can be recombined, auditioned, dragged straight into a music app, or turned into MIDI to learn or re-play a part.'
     ],
     features: [
@@ -402,10 +405,10 @@ var APPS = [
       'Original files are only ever read, never changed'
     ],
     shots: [{ src: "apps/shots/stems-1.jpg", caption: "Six stems from one song, two picked to be combined", look: "Glossy" }, { src: "apps/shots/stems-2.jpg", caption: "TO MIDI: the vocal line turned into notes, with sliders to tidy it", look: "Glossy" }] },
-  { id: 'lulu', group: 'music', name: 'RBC Audio Editor', icon: 'apps/lulu.png', platforms: ['mac'],
+  { id: 'lulu', group: 'music', name: 'Audio Editor', icon: 'apps/lulu.png', platforms: ['mac'],
     short: 'A fast, safe waveform editor for trimming, fading, pitching and finishing audio.',
     text: [
-      'RBC Audio Editor is built for the everyday jobs: tidy the start and end of a bounce, fade it, bring it up to level, loop a section, or change its pitch by a semitone without a click at the join.',
+      'Audio Editor is built for the everyday jobs: tidy the start and end of a bounce, fade it, bring it up to level, loop a section, or change its pitch by a semitone without a click at the join.',
       'It never overwrites the original file; every edit is saved as a new file, with full undo along the way.'
     ],
     features: [
@@ -418,11 +421,11 @@ var APPS = [
       'Send a selection straight into a sample library'
     ],
     shots: [{ src: "apps/shots/lulu-1.jpg", caption: "A section snapped to the beat, with hit marks and loudness readouts", look: "Glossy" }, { src: "apps/shots/lulu-2.jpg", caption: "The EQ: seven bands, heard live as you drag", look: "Glossy" }] },
-  { id: 'librarian', group: 'music', name: 'RBC Sample Librarian', icon: 'apps/librarian.png', platforms: ['mac'],
+  { id: 'librarian', group: 'music', name: 'Sample Librarian', icon: 'apps/librarian.png', platforms: ['mac'],
     short: 'Browse, audition and tag thousands of loops and samples, with tempo and key found for you.',
     text: [
-      'A sample browser for big libraries. Choose the folders worth having, and RBC Sample Librarian lists every loop and one-shot with its tempo, key and length worked out automatically.',
-      'Click to audition, heart the favourites, tag them your own way, and the tags show up inside RBC Music Workstation’s loop browser.'
+      'A sample browser for big libraries. Choose the folders worth having, and Sample Librarian lists every loop and one-shot with its tempo, key and length worked out automatically.',
+      'Click to audition, heart the favourites, tag them your own way, and the tags show up inside Music Workstation’s loop browser.'
     ],
     features: [
       'Fast scanning of chosen folders (tens of thousands of files)',
@@ -435,10 +438,10 @@ var APPS = [
     shots: [{ src: "apps/shots/librarian-1.jpg", caption: "A loop library with tempo and key found automatically, favourites hearted", look: "Electric Blue" }] },
 
   /* ----- home ----- */
-  { id: 'mail', group: 'home', name: 'RBC Mail', icon: 'apps/mail.png', platforms: ['mac', 'soon:iPad and iPhone · planned'],
+  { id: 'mail', group: 'home', name: 'Mail', icon: 'apps/mail.png', platforms: ['mac', 'soon:iPad and iPhone · planned'],
     short: 'A clear, fast mail app for several accounts, with instant push and proper junk control.',
     text: [
-      'RBC Mail handles several accounts at once (iCloud, Microsoft 365, Outlook.com, Gmail and others) with new mail arriving the moment it lands on the server, just like the phone.',
+      'Mail handles several accounts at once (iCloud, Microsoft 365, Outlook.com, Gmail and others) with new mail arriving the moment it lands on the server, just like the phone.',
       'It is built for long reading sessions: large, comfortable text, a dark page for every email, and lists that open instantly because they are kept on the Mac.'
     ],
     features: [
@@ -448,26 +451,26 @@ var APPS = [
       'Signatures with a picture and text, sized to look right in other mail apps',
       'Address suggestions learned from the mail you send and receive',
       'Adjustable reading text size and page brightness, including a dark page',
-      'Sends invoices straight from RBC Accounts'
+      'Sends invoices straight from Small Business Manager'
     ],
     shots: [{ src: "apps/shots/mail-1.jpg", caption: "ALL INBOXES with three accounts: each has its own colour, and every email is tagged with the account it came to", look: "Glossy" }, { src: "apps/shots/mail-2.jpg", caption: "A newsletter on the dark page, with page brightness and text size", look: "Glossy" }] },
-  { id: 'accounts', group: 'home', name: 'RBC Accounts', icon: 'apps/accounts.png', platforms: ['mac', 'ipad'],
+  { id: 'accounts', group: 'home', name: 'Small Business Manager', icon: 'apps/accounts.png', platforms: ['mac', 'ipad'],
     short: 'Invoices, a work log, bank matching and a year-end pack, all kept on your own Mac.',
     text: [
-      'RBC Accounts replaces an online bookkeeping subscription for a sole trader. Log the work as you go, turn it into a branded invoice in one click, email it, and mark it paid when the money arrives.',
+      'Small Business Manager replaces an online bookkeeping subscription for a sole trader. Log the work as you go, turn it into a branded invoice in one click, email it, and mark it paid when the money arrives.',
       'Bank statements are imported and sorted into categories that learn from your own choices, payments are matched to unpaid invoices, and at the year end it makes a pack for the accountant. Everything stays on the Mac.'
     ],
     features: [
       'Clients and a work log (hours × rate or a fixed price)',
-      'CREATE INVOICE: numbered, branded PDF invoices, emailed through RBC Mail',
+      'CREATE INVOICE: numbered, branded PDF invoices, emailed through our Mail app',
       'Mark paid, with money in matched to unpaid invoices',
       'Bank statement import with categories that learn',
-      'Brings across clients, invoices and payment history from other accounting services',
+      'Brings across clients, invoices and payment history from other small business manager software',
       'Year-end pack: profit and loss by category, transactions and invoices',
       'iPad version that keeps in step with the Mac'
     ],
-    shots: [{ src: "apps/shots/accounts-1.jpg", caption: "A client’s work log, ready to turn into an invoice", look: "Electric Blue" }, { src: "apps/shots/accounts-2.jpg", caption: "A branded invoice, ready to email through RBC Mail", look: "Electric Blue" }] },
-  { id: 'tagedit', group: 'home', name: 'RBC Tag Edit', icon: 'apps/tagedit.png', platforms: ['mac'],
+    shots: [{ src: "apps/shots/accounts-1.jpg", caption: "A client’s work log, ready to turn into an invoice", look: "Electric Blue" }, { src: "apps/shots/accounts-2.jpg", caption: "A branded invoice, ready to email through our Mail app", look: "Electric Blue" }] },
+  { id: 'tagedit', group: 'home', name: 'Tag Edit', icon: 'apps/tagedit.png', platforms: ['mac'],
     short: 'Tidies the names, albums, artwork and details inside a music collection’s MP3s.',
     text: [
       'A spreadsheet-style editor for MP3 tags. Drag in a file or a whole folder, click a song and fix its title, artist, album, numbers and artwork in the side panel.',
@@ -482,41 +485,41 @@ var APPS = [
       'Converts other audio formats to MP3'
     ],
     shots: [{ src: "apps/shots/tagedit-1.jpg", caption: "An album’s tags and cover art", look: "Glossy" }, { src: "apps/shots/tagedit-2.jpg", caption: "Eight songs selected: change a field once for all of them", look: "Glossy" }] },
-  { id: 'juno', group: 'home', name: 'RBC Media Player', icon: 'apps/juno.png', platforms: ['mac', 'ipad', 'tv'],
+  { id: 'juno', group: 'home', name: 'Media Player', icon: 'apps/juno.png', platforms: ['mac', 'ipad', 'tv'],
     short: 'Music, films and TV from the home library on the Mac, on every screen in the house.',
     text: [
-      'RBC Media Player is the home’s music and film centre. On the Mac it plays the local music library and YouTube Music side by side, with playlists, favourites and a proper player window.',
-      'RBC TV, its Apple TV and iPad companion, plays the music, films and TV series straight from the library stored on the main Mac, so there is one collection and nothing to copy. Up Next, a watchlist and resume-where-you-left-off follow you between screens.'
+      'Media Player is the home’s music and film centre. On the Mac it plays the local music library and YouTube Music side by side, with playlists, favourites and a proper player window.',
+      'Its Apple TV and iPad companion plays the music, films and TV series straight from the library stored on the main Mac, so there is one collection and nothing to copy. Up Next, a watchlist and resume-where-you-left-off follow you between screens.'
     ],
     features: [
       'Local music library with albums, artists, playlists and favourites',
       'YouTube Music alongside, using your own subscription',
       'Films and TV series with artwork, seasons and Up Next',
-      'RBC TV on Apple TV and iPad, streaming from the main Mac over the home network',
+      'Companion app on Apple TV and iPad, streaming from the main Mac over the home network',
       'Watchlist and play position shared between Mac, Apple TV and iPad',
       'Refresh to pick up new films and episodes without restarting'
     ],
     runs: '<b>How it runs:</b> the library lives on the main Mac; the Apple TV and iPad play it from there over the home network.',
     shots: [{ src: "apps/shots/juno-1.jpg", caption: "The music library as album covers", look: "Glossy" }, { src: "apps/shots/juno-2.jpg", caption: "An album page: play, shuffle, edit tags, favourite", look: "Glossy" }] },
-  { id: 'homepanel', group: 'home', name: 'RBC Home Panel', icon: 'apps/homepanel.png', icon2: 'apps/homepanelmax.png', platforms: ['mac'],
+  { id: 'homepanel', group: 'home', name: 'Home Panel', icon: 'apps/homepanel.png', icon2: 'apps/homepanelmax.png', platforms: ['mac'],
     short: 'The house at a glance: solar and battery, weather, who’s watching what, drives and more.',
     text: [
-      'A dashboard for a second screen. RBC Home Panel shows the solar panels and battery with a live power flow, the local weather, what is playing on the media server and the state of every drive.',
-      'RBC Home Panel MAX puts every home module together on one full screen: heating, cameras, solar, weather, media and now playing, all at once.'
+      'A dashboard for a second screen. Home Panel shows the solar panels and battery with a live power flow, the local weather, what is playing on the media server and the state of every drive.',
+      'Home Panel MAX puts every home module together on one full screen: heating, cameras, solar, weather, media and now playing, all at once.'
     ],
     features: [
       'Solar generation, house use, grid and battery with a live flow and graph',
       'Weather for your town',
       'Who is watching what on the home media server, and what was recently added',
       'Every drive with level meters, including ones that are unplugged',
-      'Now playing in RBC Media Player, with transport keys',
+      'Now playing in Media Player, with transport keys',
       'MAX edition: heating and cameras on the same screen'
     ],
     shots: [] },
-  { id: 'heating', group: 'home', name: 'RBC Heating', icon: 'apps/heating.png', platforms: ['mac', 'ipad'],
+  { id: 'heating', group: 'home', name: 'Heating', icon: 'apps/heating.png', platforms: ['mac', 'ipad'],
     short: 'A clear control panel for heating, with boost, schedules and solar-aware heating.',
     text: [
-      'RBC Heating is a clear control panel for heating: every room’s temperature, target and mode on one screen, with boost and away in a single press.',
+      'Heating is a clear control panel for heating: every room’s temperature, target and mode on one screen, with boost and away in a single press.',
       'It can also watch the solar system and warm the house with power that would otherwise go back to the grid.'
     ],
     features: [
@@ -527,10 +530,10 @@ var APPS = [
       'iPad version for the control panel on the wall or sofa'
     ],
     shots: [{ src: "apps/shots/heating-1.jpg", caption: "Every room at a glance: temperature, target, timers, night and boost", look: "Glossy" }] },
-  { id: 'cameras', group: 'home', name: 'RBC Cameras', icon: 'apps/cameras.png', platforms: ['mac', 'ipad', 'tv'],
+  { id: 'cameras', group: 'home', name: 'Cameras', icon: 'apps/cameras.png', platforms: ['mac', 'ipad', 'tv'],
     short: 'Continuous live views of the home’s cameras on the Mac, iPad and TV.',
     text: [
-      'RBC Cameras keeps live feeds from the home’s security cameras on screen all the time, without opening a phone app for each one.',
+      'Cameras keeps live feeds from the home’s security cameras on screen all the time, without opening a phone app for each one.',
       'The Apple TV and iPad versions take their camera list from the Mac, so they are set up once.'
     ],
     features: [
@@ -540,10 +543,10 @@ var APPS = [
       'Works with any camera that offers a standard live stream'
     ],
     shots: [] },
-  { id: 'catscan', group: 'home', name: 'RBC Cat Scan', icon: 'apps/catscan.png', platforms: ['mac'],
+  { id: 'catscan', group: 'home', name: 'Cat Scan', icon: 'apps/catscan.png', platforms: ['mac'],
     short: 'Finds what is filling your disk, and backs up only what the backup drive is missing.',
     text: [
-      'RBC Cat Scan does two jobs. SPACE draws a map of a whole disk or any folder, every block sized by the space it takes, so the big space-eaters jump out at once. Each block is coloured either by kind (audio, sample libraries, video, pictures, apps and plugins) or by how safe it is to remove, and it says which installed app or plugin a folder belongs to before you touch it.',
+      'Cat Scan does two jobs. SPACE draws a map of a whole disk or any folder, every block sized by the space it takes, so the big space-eaters jump out at once. Each block is coloured either by kind (audio, sample libraries, video, pictures, apps and plugins) or by how safe it is to remove, and it says which installed app or plugin a folder belongs to before you touch it.',
       'COPY fixes the Finder refusing to back up a huge folder because it counts everything: it looks at what is already on the backup and copies only the files that are missing, after showing how much space they need and whether they fit. Nothing on the backup is ever overwritten, changed or deleted.'
     ],
     features: [
